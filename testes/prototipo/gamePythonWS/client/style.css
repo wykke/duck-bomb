@@ -1,0 +1,5 @@
+body { background: rgb(2, 2, 2);}
+#bola { position: absolute; left: 500px; top: 100px; color: white; }
+#bola > p { display: block; }
+#bola > img { width: 70px; }
+#sprite { display: none; }
