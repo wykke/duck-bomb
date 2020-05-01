@@ -1,4 +1,4 @@
-class Objeto{
+export default class Objeto{
     constructor(){
         this.posicaoX
         this.posicaoY
@@ -9,3 +9,4 @@ class Objeto{
     }
 
 }
+
