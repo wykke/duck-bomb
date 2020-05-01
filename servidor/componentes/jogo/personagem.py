@@ -37,7 +37,7 @@ class Personagem(ObjetosDinamicos):
         posicao_final_x = self.raio_bomba*math.cos(self.angulo_bomba)
         posicao_final_y = self.raio_bomba*math.sin(self.angulo_bomba)
 
-        bomba = Bomba(TIMER, self.raio_bomba, posicao_final_x, posicao_final_y, self.dir_x, self.dir_y)
+        bomba = Bomba(self.TIMER, self.raio_bomba, posicao_final_x, posicao_final_y, self.dir_x, self.dir_y)
         ThreadUpdate.bombas.update({(x,y):bomba})
 
     def andar(self, x, y):

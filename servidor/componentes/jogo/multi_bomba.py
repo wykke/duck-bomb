@@ -7,8 +7,9 @@ Content: Classe do Power Up de Multiplas Bombas.
 
 '''
 from componentes.jogo.powerups import PowerUp
+from componentes.jogo.thread_update import ThreadUpdate
 
 class MultiBomba(PowerUp):
 
     def poder(self,id):
-        ThreadUpdade.personagens[id].count_bomba+=1
+        ThreadUpdate.personagens[id].count_bomba+=1
