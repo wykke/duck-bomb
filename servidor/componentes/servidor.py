@@ -11,16 +11,18 @@ from componentes.jogo.personagem import Personagem
 
 import eventlet
 import socketio
-import threading
-import time
-from threading import Thread
+
+
 
 DEFAULT_POSTION = 250
 
-def Servidor():
+
+class Servidor():
     
     @sio.on('spawn')
-    def spawn(self, sid):
+    def spawn(self, sid, data):
+        
+        print(data)
         
         #Mandar mensagens depende da rede não acrescentar o delay de instanciar o objeto
         sio.enter_room(sid, 'players')
@@ -52,13 +54,12 @@ def Servidor():
         #Atualiza as direções e acaba
         ThreadUpdate.personagens[sid].direcao_x = direcao_x
         ThreadUpdate.personagens[sid].direcao_y = direcao_y
-        
-    @sio.on('explode')    
-    def explode(self, sid, data):
-        
-        #Recebe a posição de onde a bomba foi clicada
-        x, y = map(int, data.split())
-        sio.emit('explode', {'id':sid, 'x':x, 'y':y}, 'players')
+
+ 
+    def explode(self, x, y):
+
+        #Emite a posição de onde a bomba foi clicada
+        sio.emit('explode', {'x':x, 'y':y}, 'players')
         
         #Retira a bomba da lista de atualização 
         bomb = ThreadUpdate.bombas.pop((x,y))
@@ -82,5 +83,8 @@ if __name__ == '__main__':
     #Valores iniciais para fazer o programa funcionar
     eventlet.monkey_patch()
     sio = socketio.Server()
+    app = socketio.WSGIApp(sio, static_files={})
     Servidor()
+    
+    eventlet.wsgi.server(eventlet.listen(('127.0.0.1', 8080)), app)
      

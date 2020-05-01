@@ -33,7 +33,6 @@ class Personagem(ObjetosDinamicos):
         self.angulo_bomba = angulo_bomba
         
     def criar_bomba(self, x, y):
-        
         #Calcula a posição final da bomba
         self.angulo_bomba = math.atan(y,x)
         posicao_final_x = self.raio_bomba*math.cos(self.angulo_bomba)
@@ -49,3 +48,4 @@ class Personagem(ObjetosDinamicos):
     def parar_andar(self):
         self.direcao_x = 0
         self.direcao_y = 0
+        

@@ -5,6 +5,10 @@ Created on 28 de abr de 2020
 
 '''
 
+import threading
+import time
+from threading import Thread
+
 class ThreadUpdate():
     
     personagens = dict()
