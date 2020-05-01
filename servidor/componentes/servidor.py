@@ -19,6 +19,8 @@ DEFAULT_POSTION = 250
 
 class Servidor():
     
+    global sio
+    
     @sio.on('spawn')
     def spawn(self, sid, data):
         
