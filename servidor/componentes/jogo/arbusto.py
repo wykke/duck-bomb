@@ -18,11 +18,12 @@ class Arbusto(ObjetosEstaticos):
         #Seleciona um poder
         objeto = self.is_power()
         
-        #Aplica o poder
-        objeto.power(id)
-        
-        #Apaga o objeto que foi usado para fazer o poder
-        del objeto
+        if (objeto != None):
+            #Aplica o poder
+            objeto.power(id)
+            
+            #Apaga o objeto que foi usado para fazer o poder
+            del objeto
 
 #Estas dudas funções podem virar uma só, mas precisamos passar o id para onde o poder vai...
        
@@ -39,7 +40,7 @@ class Arbusto(ObjetosEstaticos):
         }
         
         #Escolher qual construtor será usado 
-        objeto = switcher.get(r, lambda: "Power Up Invalido.")
+        objeto = switcher.get(r, lambda: None)
         
         return objeto
         

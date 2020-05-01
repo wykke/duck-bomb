@@ -15,12 +15,12 @@ class ThreadUpdate():
     bombas = dict()
 
     def update_pesonagem(self):
-        for personagem in personagens:
-            persongem.posicao_x+=personagem.direcao_x*personagem.velocidade
-            persongem.posicao_y+=personagem.direcao_y*personagem.velocidade
+        for personagem in self.personagens:
+            personagem.posicao_x+=personagem.direcao_x*personagem.velocidade
+            personagem.posicao_y+=personagem.direcao_y*personagem.velocidade
 
     def update_bomba(self):
-        for bomba in bombas:
+        for bomba in self.bombas:
             bomba.timer-=1
             if(bomba.timer==0):
                 bomba.explodir()
