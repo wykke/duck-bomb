@@ -6,6 +6,13 @@ Created on 28 de abr de 2020
 Content: Classe Personagem
 '''
 from componentes.jogo.objetos_dinamicos import ObjetosDinamicos
+from componentes.jogo.bomba import Bomba
+from componentes.jogo.thread_update import ThreadUpdate
+
+import math
+
+#Constante de tempo. 
+TIMER = 1.0
 
 class Personagem(ObjetosDinamicos):
     
@@ -21,10 +28,17 @@ class Personagem(ObjetosDinamicos):
         self.angulo_bomba = angulo_bomba
         
     def criar_bomba(self, x, y):
-        pass
+        #Calcula a posição final da bomba
+        posicao_final_x = self.raio_bomba*math.cos(self.angulo_bomba)
+        posicao_final_y = self.raio_bomba*math.sin(self.angulo_bomba)
+        
+        bomba = Bomba(TIMER, self.raio_bomba, posicao_final_x, posicao_final_y, self.dir_x, self.dir_y)
+        ThreadUpdate.bombas.append(bomba)
     
     def andar(self, x, y):
-        pass
+        self.direcao_x = x
+        self.direcao_y = y
     
     def parar_andar(self):
-        pass
+        self.direcao_x = 0
+        self.direcao_y = 0
