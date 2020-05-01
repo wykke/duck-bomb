@@ -10,13 +10,17 @@ import time
 from threading import Thread
 
 class ThreadUpdate():
-    
+
     personagens = dict()
     bombas = dict()
-    
+
     def update_pesonagem(self):
-        pass
-    
+        for personagem in personagens:
+            persongem.posicao_x+=personagem.direcao_x*personagem.velocidade
+            persongem.posicao_y+=personagem.direcao_y*personagem.velocidade
+
     def update_bomba(self):
-        pass
-    
+        for bomba in bombas:
+            bomba.timer-=1
+            if(bomba.timer==0):
+                bomba.explodir()

@@ -9,7 +9,6 @@ from componentes.jogo.powerups import PowerUp
 
 
 class DistanciaBomba(PowerUp):
-    
-    def poder(self):
-        pass
-    
+
+    def poder(self,id):
+        ThreadUpdade.personagens[id].distancia_bomba+=0.5

@@ -13,11 +13,11 @@ import math
 
 class Personagem(ObjetosDinamicos):
     #Constante de tempo.
-    TIMER = 1.0
+    TIMER = 3.0
 
     def __init__(self, id, posicao_x, posicao_y,
                  direcao_x = 0, direcao_y = 0,
-                 raio_bomba = 1, count_bomba = 1,
+                 raio_bomba = 3, count_bomba = 1,
                  distancia_bomba = 1, angulo_bomba = 0):
 
         #Chama o construtor da classe mãe
