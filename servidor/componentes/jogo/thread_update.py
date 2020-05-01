@@ -7,8 +7,8 @@ Created on 28 de abr de 2020
 
 class ThreadUpdate():
     
-    personagens = list()
-    bombas = list()
+    personagens = dict()
+    bombas = dict()
     
     def update_pesonagem(self):
         pass
