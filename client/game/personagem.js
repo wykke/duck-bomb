@@ -5,4 +5,7 @@ export default class Personagem extends Objeto{
         super()
         this.spriteMovimento
     }
+    mover(){
+        
+    }
 }
