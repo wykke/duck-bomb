@@ -1,11 +1,11 @@
 export default class Objeto{
-    constructor(){
-        this.posicaoX
-        this.posicaoY
-        this.tamanhoX
-        this.tamanhoY
-        this.layer
-        this.spriteIdle
+    constructor(posicaoX, posicaoY, tamanhoX, tamanhoY, layer, spriteIdle){
+        this.posicaoX = posicaoX
+        this.posicaoY = posicaoY
+        this.tamanhoX = tamanhoX
+        this.tamanhoY = tamanhoY
+        this.layer = layer
+        this.spriteIdle = spriteIdle
     }
 
 }
