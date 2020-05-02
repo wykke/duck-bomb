@@ -1,3 +1,6 @@
+.startGame > label {
+    color: white;
+}
 .objeto {position: absolute;}
 .personagem > img {
     width: 50px;
