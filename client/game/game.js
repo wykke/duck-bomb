@@ -5,6 +5,7 @@ export default class Game{
     constructor(){
         this.canvas = document.getElementById("canvas")
         this.mapa = new Mapa()
+        this.playerId
     }
     newGame(){
         this.canvas.style.backgroundColor = "black"

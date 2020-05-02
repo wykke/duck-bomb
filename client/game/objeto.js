@@ -1,9 +1,8 @@
 export default class Objeto{
-    constructor(id, posicaoX, posicaoY, layer, spriteIdle){
+    constructor(id, posicaoX, posicaoY, spriteIdle){
         this.id = id
         this.posicaoX = posicaoX
         this.posicaoY = posicaoY
-        this.layer = layer
         this.spriteIdle = spriteIdle
         this.dom = document.createElement("div")
         
