@@ -5,4 +5,7 @@ export default class Bomba extends Objeto{
         super(posicaoX, posicaoY, tamanhoX, tamanhoY, layer, spriteIdle)
         this.spriteExplosao = spriteExplosao
     }
+    detonar(){
+        
+    }
 }

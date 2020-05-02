@@ -1,10 +1,10 @@
 import Objeto from "./objeto.js"
 
-export default class Map{
+export default class Mapa{
     constructor(){
-        this.objetos = []
+        this.objetos = new Map()
     }
-    spawnObjeto(){
-
+    spawnObjeto(objeto){
+        document.getElementById("objetos").appendChild(objeto.dom)
     }
 }
