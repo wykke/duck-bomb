@@ -16,4 +16,7 @@ export default class Game{
     moverPersonagem(id, posicaoX, posicaoY){
         this.mapa.objetos[id].mover(posicaoX, posicaoY)
     }
+    pararMoverPersonagem(id){
+        this.mapa.objetos[id].pararMover()
+    }
 }
