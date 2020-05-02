@@ -2,19 +2,30 @@ import Objeto from "./objeto.js"
 import sprites from "./sprites.js"
 
 export default class Personagem extends Objeto{
-    constructor(playerName, id, posicaoX, posicaoY){
+    constructor(id, playerName, posicaoX, posicaoY){
         const layer = 2
         const spriteIdle = sprites.folder + sprites.persongemIdle
-        super(posicaoX, posicaoY, layer, spriteIdle)
+        super(id, posicaoX, posicaoY, layer, spriteIdle)
 
         this.playerName = playerName
-        this.id = id
         this.spriteMovimento = sprites.folder + sprites.personagemMove
 
         this.createDom()
     }
-    mover(){
-
+    mover(posicaoX, posicaoY){
+        const animationDelay = 10
+        if(!document.hidden)
+            $(this.dom).animate(
+                {
+                    left: posicaoX+"px", 
+                    top: posicaoY+"px"
+                }, animationDelay)
+        else{
+            this.dom.style.left = posicaoX+"px"
+            this.dom.style.top = posicaoY+"px"
+        }
+        this.posicaoX = posicaoX
+        this.posicaoY = posicaoY
     }
     createDom(){
         this.dom.classList.add("personagem")

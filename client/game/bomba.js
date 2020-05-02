@@ -1,8 +1,8 @@
 import Objeto from "./objeto.js"
 
 export default class Bomba extends Objeto{
-    constructor(posicaoX, posicaoY, tamanhoX, tamanhoY, layer, spriteIdle, spriteExplosao){
-        super(posicaoX, posicaoY, tamanhoX, tamanhoY, layer, spriteIdle)
+    constructor(id, posicaoX, posicaoY, layer, spriteIdle, spriteExplosao){
+        super(id, posicaoX, posicaoY, layer, spriteIdle)
         this.spriteExplosao = spriteExplosao
     }
     detonar(){

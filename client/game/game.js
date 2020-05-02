@@ -9,8 +9,11 @@ export default class Game{
     newGame(){
         this.canvas.style.backgroundColor = "black"
     }
-    spawnPersonagem(playerName, id, posicaoX, posicaoY){
-        const novoPersonagem = new Personagem(playerName, id, posicaoX, posicaoY)
+    spawnPersonagem(id, playerName, posicaoX, posicaoY){
+        const novoPersonagem = new Personagem(id, playerName, posicaoX, posicaoY)
         this.mapa.spawnObjeto(novoPersonagem)
+    }
+    moverPersonagem(id, posicaoX, posicaoY){
+        this.mapa.objetos[id].mover(posicaoX, posicaoY)
     }
 }

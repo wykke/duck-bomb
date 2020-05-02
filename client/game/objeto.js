@@ -1,5 +1,6 @@
 export default class Objeto{
-    constructor(posicaoX, posicaoY, layer, spriteIdle){
+    constructor(id, posicaoX, posicaoY, layer, spriteIdle){
+        this.id = id
         this.posicaoX = posicaoX
         this.posicaoY = posicaoY
         this.layer = layer
