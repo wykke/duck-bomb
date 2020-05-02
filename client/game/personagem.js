@@ -1,5 +1,5 @@
 import Objeto from "./objeto.js"
-import sprites from "./sprites.js"
+import sprites from "../assets/sprites.js"
 
 export default class Personagem extends Objeto{
     constructor(id, playerName, posicaoX, posicaoY){

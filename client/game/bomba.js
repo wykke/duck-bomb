@@ -1,5 +1,5 @@
 import Objeto from "./objeto.js"
-import sprites from "./sprites.js"
+import sprites from "../assets/sprites.js"
 
 export default class Bomba extends Objeto{
     constructor(id, posicaoX, posicaoY){
