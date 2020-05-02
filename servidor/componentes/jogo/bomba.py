@@ -6,7 +6,8 @@ Created on 28 de abr de 2020
 Content: Classe Bomba. 
 '''
 from componentes.jogo.objetos_dinamicos import ObjetosDinamicos
-
+from componentes.jogo.thread_update import ThreadUpdate
+from componentes.servidor import Servidor
 
 class Bomba(ObjetosDinamicos):
     
@@ -22,4 +23,4 @@ class Bomba(ObjetosDinamicos):
         pass
     
     def explodir(self):
-        pass
+        Servidor.explode(self.posicao_final_x, self.posicao_final_y)

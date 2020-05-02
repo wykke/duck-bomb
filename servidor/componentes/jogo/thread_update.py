@@ -5,14 +5,22 @@ Created on 28 de abr de 2020
 
 '''
 
+import threading
+import time
+from threading import Thread
+
 class ThreadUpdate():
-    
-    personagens = list()
-    bombas = list()
-    
+
+    personagens = dict()
+    bombas = dict()
+
     def update_pesonagem(self):
-        pass
-    
+        for personagem in self.personagens:
+            personagem.posicao_x+=personagem.direcao_x*personagem.velocidade
+            personagem.posicao_y+=personagem.direcao_y*personagem.velocidade
+
     def update_bomba(self):
-        pass
-    
+        for bomba in self.bombas:
+            bomba.timer-=1
+            if(bomba.timer==0):
+                bomba.explodir()

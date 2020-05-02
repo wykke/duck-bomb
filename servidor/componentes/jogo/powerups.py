@@ -9,7 +9,6 @@ Classe geral dos powerups
 from abc import ABC, abstractmethod
 
 class PowerUp(ABC):
-    
-    def poder(self):
+
+    def poder(self, id):
         pass
-    

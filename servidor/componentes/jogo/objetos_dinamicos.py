@@ -9,9 +9,8 @@ Content: Classe Objetos dinamicos
 from abc import ABC, abstractmethod
 
 class ObjetosDinamicos(ABC):
-    
-    def __init__(self, posicao_x, posicao_y, velocidade):
-        self.posicao_x = posicao_x 
-        self.posicao_y = posicao_y 
+
+    def __init__(self, posicao_x, posicao_y, velocidade=1):
+        self.posicao_x = posicao_x
+        self.posicao_y = posicao_y
         self.velocidade = velocidade
-    
