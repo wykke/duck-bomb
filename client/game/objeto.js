@@ -7,6 +7,6 @@ export default class Objeto{
         this.layer = layer
         this.spriteIdle = spriteIdle
     }
-
+    
 }
 
