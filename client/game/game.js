@@ -27,5 +27,6 @@ export default class Game{
     spawnBomba(id, posicaoX, posicaoY){
         const novaBomba = new Bomba(id, posicaoX, posicaoY)
         this.mapa.spawnObjeto(novaBomba)
+        return novaBomba
     }
 }

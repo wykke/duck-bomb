@@ -19,13 +19,15 @@ const key = {
 const playerVetor = {x:0, y:0}
 
 function playerVetorKeyDown(event) {
-    if(playerVetor.x == 0) playerVetor.x = playerVetor.x || key.getVetor(event.keyCode).x
-    if(playerVetor.y == 0) playerVetor.y = playerVetor.y || key.getVetor(event.keyCode).y
+    if(playerVetor.x == 0 && key.getVetor(event.keyCode))
+        playerVetor.x = playerVetor.x || key.getVetor(event.keyCode).x
+    if(playerVetor.y == 0 && key.getVetor(event.keyCode))
+        playerVetor.y = playerVetor.y || key.getVetor(event.keyCode).y
     return playerVetor
-};
+}
 
 function playerVetorKeyUp(event) {
     if(key.getVetor(event.keyCode).x == playerVetor.x) playerVetor.x = 0
     if(key.getVetor(event.keyCode).y == playerVetor.y) playerVetor.y = 0
     return playerVetor
-};
+}

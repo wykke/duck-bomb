@@ -2,7 +2,8 @@ import Game from "../game/game.js"
 import input from "../input/input.js"
 
 const game = new Game()
-game.playerId = 100
+let bomb = 2
+game.playerId = 1
 
 document.onkeydown = function(event){
     if(game.playerId){
@@ -17,15 +18,15 @@ document.onkeyup = function(event){
         game.pararMoverPersonagem(game.playerId)
     }
 }
+document.addEventListener("click", (event)=>{
+    const bomba = game.spawnBomba(bomb++, event.clientX, event.clientY)
+    setInterval(()=>{
+        bomba.detonar()
+    },2000)
+    setInterval(()=>{
+        game.removerObjeto(bomba.id)
+    },3000)
+}, false);
 
 game.newGame()
-game.spawnPersonagem(100, "alex", 200, 200)
-game.spawnBomba(101, 600, 210)
-
-setTimeout(()=>{
-    game.mapa.objetos.get(101).detonar()
-}, 3000)
-
-setTimeout(()=>{
-    game.removerObjeto(101)
-}, 4000)
+game.spawnPersonagem(game.playerId, "alex", 200, 200)
