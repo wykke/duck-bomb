@@ -4,13 +4,14 @@ import sprites from "./sprites.js"
 export default class Bomba extends Objeto{
     constructor(id, posicaoX, posicaoY){
         const spriteIdle = sprites.folder + sprites.bomba
-        super(id, posicaoX, posicaoY, spriteIdle)
+        super(id, posicaoX-20, posicaoY-20, spriteIdle)
         this.spriteExplosao = sprites.folder + sprites.bombaExplosao
 
         this.createDom()
     }
     detonar(){
         const animationDelay = 300
+        const explosionDelay = 1000
         this.dom.getElementsByTagName("img")[0].src = this.spriteExplosao
 
         if(!document.hidden){
@@ -29,6 +30,10 @@ export default class Bomba extends Objeto{
             this.dom.style.width = "300px"
             this.dom.style.height = "300px"
         }
+
+        return new Promise((resolve)=>{
+            setTimeout(()=>{resolve()}, animationDelay+explosionDelay)
+        })
     }
     createDom(){
         this.dom.classList.add("bomba")

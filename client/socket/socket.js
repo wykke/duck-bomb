@@ -21,11 +21,8 @@ document.onkeyup = function(event){
 document.addEventListener("click", (event)=>{
     const bomba = game.spawnBomba(bomb++, event.clientX, event.clientY)
     setInterval(()=>{
-        bomba.detonar()
+        game.detonarBomba(bomba.id)
     },2000)
-    setInterval(()=>{
-        game.removerObjeto(bomba.id)
-    },3000)
 }, false);
 
 game.newGame()
