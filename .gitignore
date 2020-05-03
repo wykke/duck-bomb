@@ -6,4 +6,4 @@
 
 #arquivos temporarios do dia
 *.dia~
-*.dia.autosave
+*.autosave
