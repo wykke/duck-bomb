@@ -7,21 +7,32 @@ export default class Game{
         this.canvas = document.getElementById("canvas")
         this.mapa = new Mapa()
         this.socket = socket
+        
+        this.estados = {
+            offline,
+            jogando
+        }
+        this.estadoAtual = this.estados.offline
+
+        this.tipoSpawn = []
+        this.tipoSpawn["personagem"] = this.spawnPersonagem
+        this.tipoSpawn["bomba"] = this.spawnBomba
     }
     newGame(){
         this.canvas.style.backgroundColor = "black"
+        this.estadoAtual = this.estados.jogando
     }
     removerObjeto(id){
         this.mapa.removerObjeto(id)
     }
-    spawnPersonagem(id, playerName, posicaoX, posicaoY){
+    spawnPersonagem(id, posicaoX, posicaoY, playerName){
         const novoPersonagem = new Personagem(id, playerName, posicaoX, posicaoY)
         this.mapa.spawnObjeto(novoPersonagem)
     }
-    moverPersonagem(id, posicaoX, posicaoY){
+    moverObjeto(id, posicaoX, posicaoY){
         this.mapa.objetos.get(id).mover(posicaoX, posicaoY)
     }
-    pararMoverPersonagem(id){
+    pararMoverObjeto(id){
         this.mapa.objetos.get(id).pararMover()
     }
     spawnBomba(id, posicaoX, posicaoY){
