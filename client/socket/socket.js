@@ -9,6 +9,15 @@ export default class Socket{
 
         setupSockets(this)
     }
+    spawn(name){
+        this.socket.emit("spawn", name)
+    }
+    move(x, y){
+        this.socket.emit("move", x, y)
+    }
+    placeBomb(posX, posY){
+        this.socket.emit("placeBomb", posX, posY)
+    }
 }
 
 function setupSockets(s){
