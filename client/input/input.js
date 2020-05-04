@@ -17,21 +17,6 @@ export default class Input{
                 return key.vetores[vkey-key.keyLeft]
             }
         }
-        document.onkeyup = function(event){
-            if(this.socket.game.estadoAtual == this.socket.game.estados.jogando){
-                this.playerKeyUp(event)
-            }
-        }
-        document.onkeydown = function(event){
-            if(this.socket.game.estadoAtual == this.socket.game.estados.jogando){
-                this.playerKeyDown(event)
-            }
-        }
-        document.addEventListener("click", (event)=>{
-            if(this.socket.game.estadoAtual == this.socket.game.estados.jogando){
-                this.playerClick(event.clientX, event.clientY)
-            }
-        }, false);
     }
     playerKeyDown(event) {
         xAtual = this.playerVetor.x

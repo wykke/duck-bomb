@@ -21,7 +21,7 @@ export default class Socket{
 }
 
 function setupSockets(s){
-    socket = s.socket
+    const socket = s.socket
 
     socket.on('spawn', (tipo, id, posX, posY, playerName) => {
         if(s.game.estadoAtual == s.game.estados.offline){

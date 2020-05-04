@@ -9,8 +9,8 @@ export default class Game{
         this.socket = socket
         
         this.estados = {
-            offline,
-            jogando
+            offline: 0,
+            jogando: 1
         }
         this.estadoAtual = this.estados.offline
 
