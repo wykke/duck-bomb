@@ -8,6 +8,7 @@ export default class Personagem extends Objeto{
 
         this.playerName = playerName
         this.spriteMovimento = sprites.folder + sprites.personagemMove
+        this.isMoving = false
 
         this.createDom()
     }

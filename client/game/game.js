@@ -3,10 +3,10 @@ import Bomba from "./bomba.js"
 import Mapa from "./mapa.js"
 
 export default class Game{
-    constructor(){
+    constructor(socket){
         this.canvas = document.getElementById("canvas")
         this.mapa = new Mapa()
-        this.playerId
+        this.socket = socket
     }
     newGame(){
         this.canvas.style.backgroundColor = "black"
