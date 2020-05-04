@@ -1,2 +1,9 @@
 #prototipos
 /testes/prototipo/*/node_modules
+
+#arquivos compilados do python
+*.pyc
+
+#arquivos temporarios do dia
+*.dia~
+*.autosave
