@@ -14,31 +14,35 @@ export default class Input{
                 {x:0, y:1},
             ],
             getVetor: function(vkey){
-                return key.vetores[vkey-key.keyLeft]
+                return this.vetores[vkey-this.keyLeft]
             }
         }
     }
     playerKeyDown(event) {
-        xAtual = this.playerVetor.x
-        yAtual = this.playerVetor.y
+        const xAtual = this.playerVetor.x
+        const yAtual = this.playerVetor.y
 
-        if(this.playerVetor.x == 0 && this.key.getVetor(event.keyCode))
-            this.playerVetor.x = this.playerVetor.x || this.key.getVetor(event.keyCode).x
-        if(this.playerVetor.y == 0 && this.key.getVetor(event.keyCode))
-            this.playerVetor.y = this.playerVetor.y || this.key.getVetor(event.keyCode).y
-        if(xAtual != this.playerVetor.x || yAtual != this.playerVetor.y)
-            this.socket.move(this.playerVetor.x, this.playerVetor.y)
+        if(this.key.getVetor(event.keyCode)){
+            this.playerVetor.x = this.key.getVetor(event.keyCode).x || this.playerVetor.x
+            this.playerVetor.y = this.key.getVetor(event.keyCode).y || this.playerVetor.y
+
+            if(xAtual != this.playerVetor.x || yAtual != this.playerVetor.y)
+                this.socket.move(this.playerVetor.x, this.playerVetor.y)
+        }
+            
     }
     playerKeyUp(event) {
-        xAtual = this.playerVetor.x
-        yAtual = this.playerVetor.y
+        const xAtual = this.playerVetor.x
+        const yAtual = this.playerVetor.y
 
-        if(key.getVetor(event.keyCode).x == playerVetor.x)
-            this.playerVetor.x = 0
-        if(key.getVetor(event.keyCode).y == playerVetor.y)
-            this.playerVetor.y = 0
-        if(xAtual != this.playerVetor.x || yAtual != this.playerVetor.y)
-            this.socket.move(this.playerVetor.x, this.playerVetor.y)
+        if(this.key.getVetor(event.keyCode)){
+            if(this.key.getVetor(event.keyCode).x == this.playerVetor.x)
+                this.playerVetor.x = 0
+            if(this.key.getVetor(event.keyCode).y == this.playerVetor.y)
+                this.playerVetor.y = 0
+            if(xAtual != this.playerVetor.x || yAtual != this.playerVetor.y)
+                this.socket.move(this.playerVetor.x, this.playerVetor.y)
+        }      
     }
     playerClick(posX, posY){
         this.socket.placeBomb(posX, posY)

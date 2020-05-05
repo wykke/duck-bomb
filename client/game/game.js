@@ -15,8 +15,10 @@ export default class Game{
         this.estadoAtual = this.estados.offline
 
         this.tipoSpawn = []
-        this.tipoSpawn["personagem"] = this.spawnPersonagem
-        this.tipoSpawn["bomba"] = this.spawnBomba
+        this.tipoSpawn["personagem"] = (id, posicaoX, posicaoY, playerName) => 
+            this.spawnPersonagem(id, posicaoX, posicaoY, playerName)
+        this.tipoSpawn["bomba"] = (id, posicaoX, posicaoY) => 
+            this.spawnBomba(id, posicaoX, posicaoY)
     }
     newGame(){
         this.canvas.style.backgroundColor = "black"

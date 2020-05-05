@@ -35,11 +35,11 @@ function setupSockets(s){
     })
 
     socket.on('move', (id, posX, posY) => {
-        s.game.removerObjeto(id)
+        s.game.moverObjeto(id, posX, posY)
     })
 
     socket.on('stopMove', (id) => {
-        s.game.removerObjeto(id)
+        s.game.pararMoverObjeto(id)
     })
 
     socket.on('explodirBomba', (id) => {

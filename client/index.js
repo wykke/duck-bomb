@@ -3,8 +3,10 @@ import Socket from "./socket/socket.js"
 const socket = new Socket()
 
 function startGame(){
-    socket.game.newGame()
-    socket.spawn(document.getElementById("nome").value)
+    setTimeout(()=>{
+        socket.game.newGame()
+        socket.spawn(document.getElementById("nome").value)
+    },200)
 }
 
 document.getElementById("btnStart").onclick = startGame
