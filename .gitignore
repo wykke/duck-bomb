@@ -1,5 +1,6 @@
 #prototipos
 /testes/prototipo/*/node_modules
+/testes/*/node_modules
 
 #arquivos compilados do python
 *.pyc
