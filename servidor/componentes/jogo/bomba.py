@@ -7,7 +7,6 @@ Content: Classe Bomba.
 '''
 from componentes.jogo.objetos_dinamicos import ObjetosDinamicos
 from componentes.jogo.thread_update import ThreadUpdate
-from componentes.servidor import Servidor
 
 class Bomba(ObjetosDinamicos):
     
@@ -19,8 +18,6 @@ class Bomba(ObjetosDinamicos):
         self.dir_x = dir_x
         self.dir_y = dir_y
         
-    def bomba(self, posicao_final_x, posicao_final_y, distancia_bomba, raio_bomba, angulo):
-        pass
-    
     def explodir(self):
-        Servidor.explode(self.posicao_final_x, self.posicao_final_y)
+        ThreadUpdate.bombas.popitem(self)
+        

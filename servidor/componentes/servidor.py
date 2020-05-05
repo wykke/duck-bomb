@@ -5,30 +5,34 @@ Created on 28 de abr de 2020
 
 Content: Classe Servidor. Usando Padrao de nome python PEP8.
 '''
+import eventlet
+import socketio
+import threading
+import time
 
 from componentes.jogo.thread_update import ThreadUpdate
 from componentes.jogo.personagem import Personagem
-
-import eventlet
-import socketio
-
+from eventlet.green.profile import thread
+from gi.overrides.keysyms import target
 
 
-DEFAULT_POSTION = 250
+
+
+DEFAULT_POSTION = 33
 
 
 class Servidor():
     
-    global sio
+    sio = socketio.Server()
     
     @sio.on('spawn')
     def spawn(self, sid, data):
         
-        print(data)
+        #print(data)
         
         #Mandar mensagens depende da rede não acrescentar o delay de instanciar o objeto
-        sio.enter_room(sid, 'players')
-        sio.emit('spawn', {'id':sid, 'x':DEFAULT_POSTION, 'y':DEFAULT_POSTION}, 'players')
+        self.sio.enter_room(sid, 'players')
+        self.sio.emit('spawn', {'id':sid, 'x':DEFAULT_POSTION, 'y':DEFAULT_POSTION}, 'players')
         
         #Cria o personagem e coloca na lista
         personagem = Personagem(sid, DEFAULT_POSTION, DEFAULT_POSTION)
@@ -39,7 +43,7 @@ class Servidor():
     def game_over(self, sid):
         
         #Infoma por mensagem que um player saiu do jogo 
-        sio.emit('remove', sid, 'players')
+        self.sio.emit('remove', sid, 'players')
         
         #Remove um objeto de uma lista de manipulação 
         personagem = ThreadUpdate.personagens.pop(sid)
@@ -61,7 +65,7 @@ class Servidor():
     def explode(self, x, y):
 
         #Emite a posição de onde a bomba foi clicada
-        sio.emit('explode', {'x':x, 'y':y}, 'players')
+        self.sio.emit('explode', {'x':x, 'y':y}, 'players')
         
         #Retira a bomba da lista de atualização 
         bomb = ThreadUpdate.bombas.pop((x,y))
@@ -74,19 +78,38 @@ class Servidor():
         
         #Recebe a posição de onde a bomba foi clicada
         x, y = map(int, data.split())
-        sio.emit('place', {'id':sid, 'x':x, 'y':y}, 'players')
+        self.sio.emit('place', {'id':sid, 'x':x, 'y':y}, 'players')
         
         #Cria a bomba no servidor
-        ThreadUpdate.personagens[sid].criar_bomba(x,y)
+        if ThreadUpdate.personagens[sid].criar_bomba(x,y):
+            self.explode(x, y)
 
 
 if __name__ == '__main__':
     
     #Valores iniciais para fazer o programa funcionar
     eventlet.monkey_patch()
-    sio = socketio.Server()
-    app = socketio.WSGIApp(sio, static_files={})
-    Servidor()
+    servidor = Servidor()
     
-    eventlet.wsgi.server(eventlet.listen(('127.0.0.1', 8080)), app)
-     
+    servidor.spawn(10, "Robson")
+    servidor.move(10, "0 0")
+    
+    
+    t= ThreadUpdate()
+    
+    print("Saiu da thread")
+    
+    servidor.spawn(11, "Claudio")
+    servidor.move(11, "1 1")
+    
+    
+    
+    
+    while True:
+        print(ThreadUpdate.personagens[10].posicao_x)
+        print(ThreadUpdate.personagens[11].posicao_y)
+        time.sleep(0.5)
+        
+    #app = socketio.WSGIApp(servidor.sio, static_files={})
+    #eventlet.wsgi.server(eventlet.listen(('127.0.0.1', 8080)), app)
+    

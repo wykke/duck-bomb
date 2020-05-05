@@ -10,12 +10,13 @@ from componentes.jogo.bomba import Bomba
 from componentes.jogo.thread_update import ThreadUpdate
 
 import math
+import threading
 
 class Personagem(ObjetosDinamicos):
     #Constante de tempo.
-    TIMER = 3.0
+    TIMER = 1.0
 
-    def __init__(self, id, posicao_x, posicao_y,
+    def __init__(self, sid, posicao_x, posicao_y,
                  direcao_x = 0, direcao_y = 0,
                  raio_bomba = 3, count_bomba = 1,
                  distancia_bomba = 1, angulo_bomba = 0):
@@ -23,7 +24,7 @@ class Personagem(ObjetosDinamicos):
         #Chama o construtor da classe mãe
         super().__init__(posicao_x, posicao_y)
 
-        self.id = id
+        self.sid = sid
         self.direcao_x = direcao_x
         self.direcao_y = direcao_y
         self.raio_bomba = raio_bomba
@@ -33,13 +34,17 @@ class Personagem(ObjetosDinamicos):
 
     def criar_bomba(self, x, y):
         #Calcula a posição final da bomba
-        self.angulo_bomba = math.atan(y,x)
+        self.angulo_bomba = math.atan(y/x)
         posicao_final_x = self.raio_bomba*math.cos(self.angulo_bomba)
         posicao_final_y = self.raio_bomba*math.sin(self.angulo_bomba)
 
-        bomba = Bomba(self.TIMER, self.raio_bomba, posicao_final_x, posicao_final_y, self.dir_x, self.dir_y)
-        ThreadUpdate.bombas.update({(x,y):bomba})
-
+        bomba = Bomba(self.TIMER, self.raio_bomba, posicao_final_x, posicao_final_y, self.direcao_x, self.direcao_y)
+        t = threading.Thread(target=ThreadUpdate.update_bomba, args=(bomba,))
+        t.start()
+        while t.is_alive():
+            pass
+        return True
+        
     def andar(self, x, y):
         self.direcao_x = x
         self.direcao_y = y

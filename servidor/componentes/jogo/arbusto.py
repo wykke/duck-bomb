@@ -7,14 +7,16 @@ Content: Classe Arbusto
 '''
 from componentes.jogo.objetos_estaticos import ObjetosEstaticos
 import random
+'''
 from componentes.jogo.distancia_bomba import DistanciaBomba
 from componentes.jogo.multi_bomba import MultiBomba
 from componentes.jogo.raio_bomba import RaioBomba
 from componentes.jogo.velocidade import Velocidade
-
+'''
 class Arbusto(ObjetosEstaticos):
     
-    def destruir(self, id):
+    pass
+    '''def destruir(self, id):
         #Seleciona um poder
         objeto = self.is_power()
         
@@ -43,4 +45,4 @@ class Arbusto(ObjetosEstaticos):
         objeto = switcher.get(r, lambda: None)
         
         return objeto
-        
+       ''' 

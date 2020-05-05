@@ -35,5 +35,3 @@ class Mapa():
             return False
         else:
             return True
-
-map = Mapa()
