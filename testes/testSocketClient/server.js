@@ -6,5 +6,5 @@ const app = express()
 const server = http.createServer(app)
 const sockets = socketio(server)
 
-const site = require('./server/serverSite')(server, app, 80)
+const site = require('./server/serverSite')(server, app, express, 80)
 const socket = require('./server/serverSocket')(sockets)
