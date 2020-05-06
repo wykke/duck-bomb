@@ -3,9 +3,10 @@ Created on 28 de abr de 2020
 
 @author: leonardo
 '''
-from reportlab.graphics.barcode.widgets import BarcodeECC200DataMatrix
+
 from componentes.jogo.arbusto import Arbusto
 from componentes.jogo.pedra import Pedra
+
 TAM = 50
 
 class Mapa():

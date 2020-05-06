@@ -7,17 +7,43 @@ Content: Classe Bomba.
 '''
 from componentes.jogo.objetos_dinamicos import ObjetosDinamicos
 from componentes.jogo.thread_update import ThreadUpdate
+from componentes.jogo.arbusto import Arbusto
+
 
 class Bomba(ObjetosDinamicos):
     
-    def __init__(self, timer, raio_bomba, posicao_final_x, posicao_final_y, dir_x, dir_y):
-        self.timer = timer
-        self.raio_bomba = raio_bomba
+    def __init__(self, posicao_final_x, posicao_final_y, dono):
+        self.timer = dono.TIMER
+        self.raio_bomba = dono.raio_bomba
         self.posicao_final_x = posicao_final_x
         self.posicao_final_y = posicao_final_y
-        self.dir_x = dir_x
-        self.dir_y = dir_y
+        self.dir_x = dono.direcao_x
+        self.dir_y = dono.direcao_y
+        print(self.posicao_final_x, end = " ")
+        print(self.posicao_final_y)
+        self.dono = dono 
         
-    def explodir(self):
-        ThreadUpdate.bombas.popitem(self)
-        
+    def destruir(self):
+
+        for i in range(self.posicao_final_x - self.raio_bomba, 
+                       self.posicao_final_x + self.raio_bomba, 1):
+            for j in range(self.posicao_final_y - self.raio_bomba, 
+                           self.posicao_final_y + self.raio_bomba, 1):
+                 
+                teste = ((i-self.posicao_final_x)**2 + (j-self.posicao_final_y)**2 )/self.raio_bomba**2
+                
+                if(teste <= 1):
+                    if(ThreadUpdate.mapa.verfica(i, j) and 
+                       not ((i == self.posicao_final_x) and (j == self.posicao_final_y))):
+                        elemento = ThreadUpdate.mapa.tiles[i][j]
+                        if(elemento == 0):
+                            continue
+                        elif(not isinstance(elemento, Arbusto)):
+                            elemento.destruir()
+                            print("ok2")
+                        else:
+                            print("ok3")
+                            elemento.destruir(self.dono)
+                        
+                        
+                    ThreadUpdate.mapa.tiles[i][j] = 0

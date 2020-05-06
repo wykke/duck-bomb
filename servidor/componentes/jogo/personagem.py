@@ -10,7 +10,6 @@ from componentes.jogo.bomba import Bomba
 from componentes.jogo.thread_update import ThreadUpdate
 
 import math
-import threading
 
 class Personagem(ObjetosDinamicos):
     #Constante de tempo.
@@ -32,17 +31,20 @@ class Personagem(ObjetosDinamicos):
         self.distancia_bomba = distancia_bomba
         self.angulo_bomba = angulo_bomba
 
-    def criar_bomba(self, x, y):
+    def criar_bomba(self, x, y, t):
         #Calcula a posição final da bomba
         self.angulo_bomba = math.atan(y/x)
-        posicao_final_x = self.raio_bomba*math.cos(self.angulo_bomba)
-        posicao_final_y = self.raio_bomba*math.sin(self.angulo_bomba)
+        posicao_final_x = x #int(self.raio_bomba*math.cos(self.angulo_bomba))
+        posicao_final_y = y #int(self.raio_bomba*math.sin(self.angulo_bomba))
 
-        bomba = Bomba(self.TIMER, self.raio_bomba, posicao_final_x, posicao_final_y, self.direcao_x, self.direcao_y)
-        t = threading.Thread(target=ThreadUpdate.update_bomba, args=(bomba,))
+        bomba = Bomba(posicao_final_x, posicao_final_y, self)
+        t.place_bomb(bomba)
+        
+        '''t = threading.Thread(target=ThreadUpdate.update_bomba, args=(bomba,))
         t.start()
         while t.is_alive():
-            pass
+            pass'''
+        
         return True
         
     def andar(self, x, y):
@@ -52,3 +54,9 @@ class Personagem(ObjetosDinamicos):
     def parar_andar(self):
         self.direcao_x = 0
         self.direcao_y = 0
+    
+    def destruir(self):
+        
+        personagem = ThreadUpdate.personagens.pop(self.sid)
+        
+        del personagem

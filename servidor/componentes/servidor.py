@@ -7,13 +7,10 @@ Content: Classe Servidor. Usando Padrao de nome python PEP8.
 '''
 import eventlet
 import socketio
-import threading
 import time
 
 from componentes.jogo.thread_update import ThreadUpdate
 from componentes.jogo.personagem import Personagem
-from eventlet.green.profile import thread
-from gi.overrides.keysyms import target
 
 
 
@@ -46,10 +43,10 @@ class Servidor():
         self.sio.emit('remove', sid, 'players')
         
         #Remove um objeto de uma lista de manipulação 
-        personagem = ThreadUpdate.personagens.pop(sid)
+        personagem = ThreadUpdate.personagens[sid]
         
         #Destroi o objeto para aliviar a memória
-        del personagem
+        personagem.destruir()
         
     @sio.on('move')
     def move(self, sid, data):
@@ -67,21 +64,18 @@ class Servidor():
         #Emite a posição de onde a bomba foi clicada
         self.sio.emit('explode', {'x':x, 'y':y}, 'players')
         
-        #Retira a bomba da lista de atualização 
-        bomb = ThreadUpdate.bombas.pop((x,y))
-        
-        #Destroi o objeto bomba para liberar espaço 
-        del bomb
     
     @sio.on('place')
     def place_bomb(self, sid, data):
+        
+        global t
         
         #Recebe a posição de onde a bomba foi clicada
         x, y = map(int, data.split())
         self.sio.emit('place', {'id':sid, 'x':x, 'y':y}, 'players')
         
         #Cria a bomba no servidor
-        if ThreadUpdate.personagens[sid].criar_bomba(x,y):
+        if ThreadUpdate.personagens[sid].criar_bomba(x,y,t):
             self.explode(x, y)
 
 
@@ -95,20 +89,36 @@ if __name__ == '__main__':
     servidor.move(10, "0 0")
     
     
-    t= ThreadUpdate()
+    t = ThreadUpdate()
     
     print("Saiu da thread")
     
-    servidor.spawn(11, "Claudio")
-    servidor.move(11, "1 1")
+    for i in range(11):
+        servidor.spawn(i+11, "Claudio")
+        servidor.move(i+11, "1 1")
+        time.sleep(0.5)
+    
+    for i in range(11):
+        ThreadUpdate.personagens.pop(i+11)
+        print("retirado")
+        time.sleep(0.5)
+
+    print(time.clock(), end =" ")
+    print("Bomba Colocada")
+    servidor.place_bomb(10, "5 5")
+    print("Bomba Colocada")
+    servidor.place_bomb(10, "21 21")
+    time.sleep(0.5)
+    print("Bomba Colocada")
+    servidor.place_bomb(10, "7 7")
+    print("Bomba Colocada")
+    servidor.place_bomb(10, "33 34")
     
     
-    
+
     
     while True:
-        print(ThreadUpdate.personagens[10].posicao_x)
-        print(ThreadUpdate.personagens[11].posicao_y)
-        time.sleep(0.5)
+        time.sleep(0.1)
         
     #app = socketio.WSGIApp(servidor.sio, static_files={})
     #eventlet.wsgi.server(eventlet.listen(('127.0.0.1', 8080)), app)
