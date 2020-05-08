@@ -6,6 +6,7 @@ Created on 28 de abr de 2020
 
 from componentes.jogo.arbusto import Arbusto
 from componentes.jogo.pedra import Pedra
+from random import randint
 
 TAM = 50
 
@@ -36,3 +37,14 @@ class Mapa():
             return False
         else:
             return True
+        
+    def gerador_posicao(self):
+        
+        x = randint(1,48)
+        y = randint(1,48)
+        
+        while(not self.verfica(x,y)):
+            x = randint(1,48)
+            y = randint(1,48)
+            
+        return (x,y)

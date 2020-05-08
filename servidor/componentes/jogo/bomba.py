@@ -8,6 +8,7 @@ Content: Classe Bomba.
 from componentes.jogo.objetos_dinamicos import ObjetosDinamicos
 from componentes.jogo.thread_update import ThreadUpdate
 from componentes.jogo.arbusto import Arbusto
+from componentes.jogo.pedra import Pedra
 
 
 class Bomba(ObjetosDinamicos):
@@ -32,18 +33,21 @@ class Bomba(ObjetosDinamicos):
                  
                 teste = ((i-self.posicao_final_x)**2 + (j-self.posicao_final_y)**2 )/self.raio_bomba**2
                 
+                
+                
                 if(teste <= 1):
-                    if(ThreadUpdate.mapa.verfica(i, j) and 
-                       not ((i == self.posicao_final_x) and (j == self.posicao_final_y))):
+                    if(not ThreadUpdate.mapa.verfica(i, j) and 
+                       not((i == self.posicao_final_x) and (j == self.posicao_final_y))):
                         elemento = ThreadUpdate.mapa.tiles[i][j]
-                        if(elemento == 0):
-                            continue
+                        print(str(elemento) + str((i,j)))
+                        
+                        if(isinstance(elemento, int)):
+                            personagem = ThreadUpdate.personagens[elemento]
+                            personagem.destruir()
                         elif(not isinstance(elemento, Arbusto)):
                             elemento.destruir()
-                            print("ok2")
                         else:
-                            print("ok3")
                             elemento.destruir(self.dono)
-                        
-                        
-                    ThreadUpdate.mapa.tiles[i][j] = 0
+                            
+                        if(not isinstance(elemento, Pedra)):
+                            ThreadUpdate.mapa.tiles[i][j] = 0

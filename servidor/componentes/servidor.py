@@ -11,11 +11,9 @@ import time
 
 from componentes.jogo.thread_update import ThreadUpdate
 from componentes.jogo.personagem import Personagem
+from componentes.jogo import personagem
 
 
-
-
-DEFAULT_POSTION = 33
 
 
 class Servidor():
@@ -25,14 +23,17 @@ class Servidor():
     @sio.on('spawn')
     def spawn(self, sid, data):
         
-        #print(data)
         
         #Mandar mensagens depende da rede não acrescentar o delay de instanciar o objeto
         self.sio.enter_room(sid, 'players')
-        self.sio.emit('spawn', {'id':sid, 'x':DEFAULT_POSTION, 'y':DEFAULT_POSTION}, 'players')
+        x, y = ThreadUpdate.mapa.gerador_posicao()
+        
+        self.sio.emit('spawn', {'id':sid, 'x':x, 'y':y}, 'players')
         
         #Cria o personagem e coloca na lista
-        personagem = Personagem(sid, DEFAULT_POSTION, DEFAULT_POSTION)
+        personagem = Personagem(sid, x, y)
+        
+        ThreadUpdate.mapa.tiles[x][y] = sid
         ThreadUpdate.personagens.update({sid:personagem})
         
  
@@ -84,41 +85,46 @@ if __name__ == '__main__':
     #Valores iniciais para fazer o programa funcionar
     eventlet.monkey_patch()
     servidor = Servidor()
-    
     servidor.spawn(10, "Robson")
     servidor.move(10, "0 0")
     
+    servidor.spawn(11, "Cherobim")
+    servidor.move(11, "0 0")
     
+            
     t = ThreadUpdate()
     
-    print("Saiu da thread")
-    
-    for i in range(11):
+
+    '''for i in range(11):
         servidor.spawn(i+11, "Claudio")
         servidor.move(i+11, "1 1")
+        for j in range(50):
+            for k in range(50):
+                print(ThreadUpdate.mapa.tiles[j][k], end = " ")
+            print()
+            
         time.sleep(0.5)
     
     for i in range(11):
-        ThreadUpdate.personagens.pop(i+11)
-        print("retirado")
+        personagem = ThreadUpdate.personagens[i+11]
+        personagem.destruir()
         time.sleep(0.5)
 
     print(time.clock(), end =" ")
-    print("Bomba Colocada")
     servidor.place_bomb(10, "5 5")
-    print("Bomba Colocada")
     servidor.place_bomb(10, "21 21")
     time.sleep(0.5)
-    print("Bomba Colocada")
-    servidor.place_bomb(10, "7 7")
-    print("Bomba Colocada")
-    servidor.place_bomb(10, "33 34")
-    
-    
+    servidor.place_bomb(10, "7 7")'''
 
+    servidor.place_bomb(10, "33 34")
+    time.sleep(0.3)
+    servidor.place_bomb(10, "1 1")
+    time.sleep(0.3)
+    servidor.place_bomb(10, "38 39")
     
     while True:
         time.sleep(0.1)
+      
         
     #app = socketio.WSGIApp(servidor.sio, static_files={})
     #eventlet.wsgi.server(eventlet.listen(('127.0.0.1', 8080)), app)

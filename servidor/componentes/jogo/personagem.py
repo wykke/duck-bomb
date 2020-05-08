@@ -37,14 +37,9 @@ class Personagem(ObjetosDinamicos):
         posicao_final_x = x #int(self.raio_bomba*math.cos(self.angulo_bomba))
         posicao_final_y = y #int(self.raio_bomba*math.sin(self.angulo_bomba))
 
+        
         bomba = Bomba(posicao_final_x, posicao_final_y, self)
         t.place_bomb(bomba)
-        
-        '''t = threading.Thread(target=ThreadUpdate.update_bomba, args=(bomba,))
-        t.start()
-        while t.is_alive():
-            pass'''
-        
         return True
         
     def andar(self, x, y):
@@ -56,7 +51,7 @@ class Personagem(ObjetosDinamicos):
         self.direcao_y = 0
     
     def destruir(self):
-        
+        print("Morri : " + str(self.sid))
         personagem = ThreadUpdate.personagens.pop(self.sid)
-        
+        ThreadUpdate.mapa.tiles[personagem.posicao_x][personagem.posicao_y] = 0
         del personagem

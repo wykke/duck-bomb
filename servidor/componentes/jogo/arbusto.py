@@ -20,8 +20,8 @@ class Arbusto(ObjetosEstaticos):
         objeto = self.is_power()
         
         if (objeto != None):
-            #Aplica o poder
-            objeto.power(personagem)
+            print("Aplica o poder")
+            objeto.poder(personagem)
             
             #Apaga o objeto que foi usado para fazer o poder
             del objeto
@@ -30,17 +30,20 @@ class Arbusto(ObjetosEstaticos):
        
     def is_power(self):
         
-        r = random.randint(0,20)
+        r = random.randint(0,5)
         
         #Switch implementado com dicionário 
         switcher = {
-            1: Velocidade(),
-            2: RaioBomba(),
-            3: DistanciaBomba(),
-            4: MultiBomba()
+            0: Velocidade(),
+            1: RaioBomba(),
+            2: DistanciaBomba(),
+            3: MultiBomba()
         }
         
-        #Escolher qual construtor será usado 
-        objeto = switcher.get(r, lambda: None)
+        #Escolher qual construtor será usado
+        if (r <= 3):
+            objeto = switcher.get(r, lambda: None)
+            return objeto
+        else:
+            return None
         
-        return objeto

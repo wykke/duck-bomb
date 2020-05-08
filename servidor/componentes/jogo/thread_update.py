@@ -9,6 +9,7 @@ Created on 28 de abr de 2020
 import time
 from componentes.jogo.mapa import Mapa
 from threading import Thread, Lock
+from componentes.jogo.arbusto import Arbusto
 
 
 class ThreadUpdate(object):
@@ -33,13 +34,22 @@ class ThreadUpdate(object):
         #thread_bomba.join()
         
     def run(self):
+        contador = 0
+        arbustos = [(10,10),(20,10),(20,20),(10,30),(30,20),(40,10),(10,40)]
+        
         while True:
             
             personagens = list(ThreadUpdate.personagens.values()).copy()
             
+            if(contador == 50):
+                contador = 0
+                for arbusto in arbustos:
+                    x,y = arbusto
+                    ThreadUpdate.mapa.tiles[x][y] = Arbusto(x,y,True)
+                
             ThreadUpdate.lock.acquire()
             for personagem in personagens:
-                print(personagem)
+                
                 if(personagem.direcao_x or personagem.direcao_y):
                     posicao_antiga_x = personagem.posicao_x
                     posicao_antiga_y = personagem.posicao_y
@@ -52,11 +62,13 @@ class ThreadUpdate(object):
                         personagem.posicao_x = posicao_antiga_x
                         personagem.posicao_y = posicao_antiga_y
                     else:
-                        ThreadUpdate.mapa.tiles[personagem.posicao_y][personagem.posicao_x] = personagem.sid
+                        ThreadUpdate.mapa.tiles[personagem.posicao_x][personagem.posicao_y] = personagem.sid
                         ThreadUpdate.mapa.tiles[posicao_antiga_x][posicao_antiga_y] = 0 
+                        
                 time.sleep(0.1)
             ThreadUpdate.lock.release()
-            time.sleep(0.2)
+            contador += 1
+            time.sleep(0.5)
 
     def update_bomba(self, bomba):
         time.sleep(bomba.timer)
