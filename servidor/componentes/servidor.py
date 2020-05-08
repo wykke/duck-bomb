@@ -19,11 +19,10 @@ from componentes.jogo import personagem
 class Servidor():
     
     sio = socketio.Server()
+    contador_bomba = 0
     
     @sio.on('spawn')
     def spawn(self, sid, data):
-        
-        
         #Mandar mensagens depende da rede não acrescentar o delay de instanciar o objeto
         self.sio.enter_room(sid, 'players')
         x, y = ThreadUpdate.mapa.gerador_posicao()
@@ -35,13 +34,37 @@ class Servidor():
         
         ThreadUpdate.mapa.tiles[x][y] = sid
         ThreadUpdate.personagens.update({sid:personagem})
+    
+    @sio.on('placeBomb')
+    def place_bomb(self, sid, data):
+        global t
+
+        #Recebe a posição de onde a bomba foi clicada
+        x, y = map(int, data.split())
+        self.sio.emit('spawn', {'id':sid, 'x':x, 'y':y}, 'players')
         
+        #Cria a bomba no servidor
+        ThreadUpdate.personagens[sid].criar_bomba(x, y, self.contador, 
+                                                  t)
+        self.contador += 1
+        if(self.contador > 100):
+            self.contador = 0
+            
+    @sio.on('move')
+    def move(self, sid, data):
+        #Recebe a direção de x e y
+        direcao_x, direcao_y = map(int, data.split())
+        
+        #Atualiza as direções e acaba
+        ThreadUpdate.personagens[sid].direcao_x = direcao_x
+        ThreadUpdate.personagens[sid].direcao_y = direcao_y
+        
+        if(direcao_x == 0 and direcao_y == 0):
+            self.sio.emit('stopMove', {'id':sid}, 'players')
  
-    @sio.on('gameover')
     def game_over(self, sid):
-        
         #Infoma por mensagem que um player saiu do jogo 
-        self.sio.emit('remove', sid, 'players')
+        self.sio.emit('remove', {'id':sid}, 'players')
         
         #Remove um objeto de uma lista de manipulação 
         personagem = ThreadUpdate.personagens[sid]
@@ -49,36 +72,16 @@ class Servidor():
         #Destroi o objeto para aliviar a memória
         personagem.destruir()
         
-    @sio.on('move')
-    def move(self, sid, data):
+    def emit_move(self, sid, x, y):
+        self.sio.emit('move', {'id':sid, 'x':x, 'y':y}, 'players')
         
-        #Recebe a direção de x e y
-        direcao_x, direcao_y = map(int, data.split())
-        
-        #Atualiza as direções e acaba
-        ThreadUpdate.personagens[sid].direcao_x = direcao_x
-        ThreadUpdate.personagens[sid].direcao_y = direcao_y
-
- 
-    def explode(self, x, y):
-
+    def explode(self, bomba):
         #Emite a posição de onde a bomba foi clicada
-        self.sio.emit('explode', {'x':x, 'y':y}, 'players')
-        
+        self.sio.emit('explodirBomba', {'id':bomba.bid}, 'players')
     
-    @sio.on('place')
-    def place_bomb(self, sid, data):
-        
-        global t
-        
-        #Recebe a posição de onde a bomba foi clicada
-        x, y = map(int, data.split())
-        self.sio.emit('place', {'id':sid, 'x':x, 'y':y}, 'players')
-        
-        #Cria a bomba no servidor
-        if ThreadUpdate.personagens[sid].criar_bomba(x,y,t):
-            self.explode(x, y)
-
+    def remove(self, rid):
+        self.sio.emit('remove', {'id':rid}, 'players')
+    
 
 if __name__ == '__main__':
     
@@ -92,7 +95,7 @@ if __name__ == '__main__':
     servidor.move(11, "0 0")
     
             
-    t = ThreadUpdate()
+    t = ThreadUpdate(servidor)
     
 
     '''for i in range(11):

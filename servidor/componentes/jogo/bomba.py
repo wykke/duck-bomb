@@ -13,16 +13,16 @@ from componentes.jogo.pedra import Pedra
 
 class Bomba(ObjetosDinamicos):
     
-    def __init__(self, posicao_final_x, posicao_final_y, dono):
+    def __init__(self, posicao_final_x, posicao_final_y, dono, bid, servidor):
         self.timer = dono.TIMER
         self.raio_bomba = dono.raio_bomba
         self.posicao_final_x = posicao_final_x
         self.posicao_final_y = posicao_final_y
         self.dir_x = dono.direcao_x
         self.dir_y = dono.direcao_y
-        print(self.posicao_final_x, end = " ")
-        print(self.posicao_final_y)
+        self.bid = bid
         self.dono = dono 
+        self.servidor = servidor
         
     def destruir(self):
 
@@ -51,3 +51,5 @@ class Bomba(ObjetosDinamicos):
                             
                         if(not isinstance(elemento, Pedra)):
                             ThreadUpdate.mapa.tiles[i][j] = 0
+        
+        self.servidor.remove(self.bid)

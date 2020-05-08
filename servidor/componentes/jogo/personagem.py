@@ -18,11 +18,11 @@ class Personagem(ObjetosDinamicos):
     def __init__(self, sid, posicao_x, posicao_y,
                  direcao_x = 0, direcao_y = 0,
                  raio_bomba = 3, count_bomba = 1,
-                 distancia_bomba = 1, angulo_bomba = 0):
+                 distancia_bomba = 1, angulo_bomba = 0, servidor):
 
         #Chama o construtor da classe mãe
         super().__init__(posicao_x, posicao_y)
-
+        self.servidor = servidor
         self.sid = sid
         self.direcao_x = direcao_x
         self.direcao_y = direcao_y
@@ -31,16 +31,15 @@ class Personagem(ObjetosDinamicos):
         self.distancia_bomba = distancia_bomba
         self.angulo_bomba = angulo_bomba
 
-    def criar_bomba(self, x, y, t):
+    def criar_bomba(self, x, y, bid, t):
         #Calcula a posição final da bomba
         self.angulo_bomba = math.atan(y/x)
         posicao_final_x = x #int(self.raio_bomba*math.cos(self.angulo_bomba))
         posicao_final_y = y #int(self.raio_bomba*math.sin(self.angulo_bomba))
 
         
-        bomba = Bomba(posicao_final_x, posicao_final_y, self)
+        bomba = Bomba(posicao_final_x, posicao_final_y, self, bid, self.servidor)
         t.place_bomb(bomba)
-        return True
         
     def andar(self, x, y):
         self.direcao_x = x
@@ -51,7 +50,7 @@ class Personagem(ObjetosDinamicos):
         self.direcao_y = 0
     
     def destruir(self):
-        print("Morri : " + str(self.sid))
+        self.servidor.remove(self.sid)
         personagem = ThreadUpdate.personagens.pop(self.sid)
         ThreadUpdate.mapa.tiles[personagem.posicao_x][personagem.posicao_y] = 0
         del personagem

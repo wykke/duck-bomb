@@ -19,7 +19,8 @@ class ThreadUpdate(object):
     threads = list()
     mapa = Mapa()
     
-    def __init__(self):
+    def __init__(self, servidor):
+        self.servidor = servidor
         thread_personagens = Thread(target= self.run, args=())
         thread_personagens.daemon = True                     
         thread_personagens.start()
@@ -31,7 +32,6 @@ class ThreadUpdate(object):
         thread_bomba = Thread(target= self.update_bomba, args=(bomba,))
         thread_bomba.start()
         ThreadUpdate.threads.append(thread_bomba)
-        #thread_bomba.join()
         
     def run(self):
         contador = 0
@@ -65,7 +65,8 @@ class ThreadUpdate(object):
                         ThreadUpdate.mapa.tiles[personagem.posicao_x][personagem.posicao_y] = personagem.sid
                         ThreadUpdate.mapa.tiles[posicao_antiga_x][posicao_antiga_y] = 0 
                         
-                time.sleep(0.1)
+                self.servidor.emit_move(personagem.sid, personagem.posicao_x, personagem.posicao_y)
+                
             ThreadUpdate.lock.release()
             contador += 1
             time.sleep(0.5)
@@ -77,5 +78,6 @@ class ThreadUpdate(object):
         ThreadUpdate.lock.release()
         print(time.clock(), end=" ")
         print("Explodiu bomba...")
+        self.servidor.explode(bomba)
         del bomba
     
