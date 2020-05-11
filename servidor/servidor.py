@@ -31,7 +31,7 @@ class Servidor():
         Servidor.sio.enter_room(sid, 'players')
         x, y = ThreadUpdate.mapa.gerador_posicao()
         
-        Servidor.sio.emit('spawn', {'id':sid, 'posX':x, 'posY':y,'tipo':"personagem", 'nome':data}, 'players')
+        Servidor.sio.emit('spawn', {'id':sid, 'posX':x, 'posY':y,'tipo':"personagem", 'playerName':data}, 'players')
         
         #Cria o personagem e coloca na lista
         personagem = Personagem(sid, x, y, Servidor())
@@ -55,16 +55,16 @@ class Servidor():
             self.contador = 0
             
     @sio.on('move')
-    def move(self, sid, data):
+    def move(sid, direcao_x, direcao_y):
         #Recebe a direção de x e y
-        direcao_x, direcao_y = map(int, data.split())
+     
         
         #Atualiza as direções e acaba
         ThreadUpdate.personagens[sid].direcao_x = direcao_x
         ThreadUpdate.personagens[sid].direcao_y = direcao_y
         
         if(direcao_x == 0 and direcao_y == 0):
-            self.sio.emit('stopMove', {'id':sid}, 'players')
+            Servidor.sio.emit('stopMove', {'id':sid}, 'players')
  
     def game_over(self, sid):
         #Infoma por mensagem que um player saiu do jogo 
@@ -77,7 +77,7 @@ class Servidor():
         personagem.destruir()
         
     def emit_move(self, sid, x, y):
-        self.sio.emit('move', {'id':sid, 'x':x, 'y':y}, 'players')
+        self.sio.emit('move', {'id':sid, 'posX':x, 'posY':y}, 'players')
         
     def explode(self, bomba):
         #Emite a posição de onde a bomba foi clicada
@@ -99,7 +99,6 @@ if __name__ == '__main__':
     servidor.move(11, "0 0")'''
     
             
-    t = ThreadUpdate(servidor)
     
 
     '''for i in range(11):
@@ -132,7 +131,7 @@ if __name__ == '__main__':
     while True:
         time.sleep(0.1)'''
       
-        
+    t = ThreadUpdate(servidor)
     app = socketio.WSGIApp(servidor.sio, static_files={'/': './client/'})
     eventlet.wsgi.server(eventlet.listen(('127.0.0.1', 8080)), app)
     

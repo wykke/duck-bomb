@@ -23,27 +23,26 @@ export default class Socket{
 function setupSockets(s){
     const socket = s.socket
 
-    socket.on('spawn', (tipo, id, posX, posY, playerName) => {
-        console.log(tipo)
+    socket.on('spawn', ({tipo, id, posX, posY, playerName}) => {
         if(s.game.estadoAtual == s.game.estados.offline){
             s.game.newGame()
         }
         s.game.tipoSpawn[tipo](id, posX, posY, playerName)
     })
 
-    socket.on('remove', (id) => {
+    socket.on('remove', ({id}) => {
         s.game.removerObjeto(id)
     })
 
-    socket.on('move', (id, posX, posY) => {
+    socket.on('move', ({id, posX, posY}) => {
         s.game.moverObjeto(id, posX, posY)
     })
 
-    socket.on('stopMove', (id) => {
+    socket.on('stopMove', ({id}) => {
         s.game.pararMoverObjeto(id)
     })
 
-    socket.on('explodirBomba', (id) => {
+    socket.on('explodirBomba', ({id}) => {
         s.game.detonarBomba(id)
     })
 }

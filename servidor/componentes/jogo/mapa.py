@@ -8,7 +8,7 @@ from componentes.jogo.arbusto import Arbusto
 from componentes.jogo.pedra import Pedra
 from random import randint
 
-TAM = 50
+TAM = 300
 
 class Mapa():
     
