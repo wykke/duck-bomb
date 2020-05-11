@@ -3,9 +3,11 @@ Created on 28 de abr de 2020
 
 @author: leonardo
 '''
-from reportlab.graphics.barcode.widgets import BarcodeECC200DataMatrix
+
 from componentes.jogo.arbusto import Arbusto
 from componentes.jogo.pedra import Pedra
+from random import randint
+
 TAM = 50
 
 class Mapa():
@@ -35,5 +37,14 @@ class Mapa():
             return False
         else:
             return True
-
-map = Mapa()
+        
+    def gerador_posicao(self):
+        
+        x = randint(1,48)
+        y = randint(1,48)
+        
+        while(not self.verfica(x,y)):
+            x = randint(1,48)
+            y = randint(1,48)
+            
+        return (x,y)
