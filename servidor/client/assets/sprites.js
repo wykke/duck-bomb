@@ -1,5 +1,5 @@
 export default {
-    folder: "../assets/sprites/",
+    folder: "../assets/spritesDev/",
     bomba: "bomba.png",
     bombaExplosao: "powerup.png",
     persongemIdle: "personagemidle.png",
