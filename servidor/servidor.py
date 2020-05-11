@@ -127,8 +127,8 @@ if __name__ == '__main__':
     time.sleep(0.3)
     servidor.place_bomb(10, "38 39")
     
-    while True:
-        time.sleep(0.1)
+    '''while True:
+        time.sleep(0.1)'''
       
         
     app = socketio.WSGIApp(servidor.sio, static_files={'/static': './client/'})
