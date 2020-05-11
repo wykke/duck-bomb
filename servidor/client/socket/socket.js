@@ -24,6 +24,7 @@ function setupSockets(s){
     const socket = s.socket
 
     socket.on('spawn', (tipo, id, posX, posY, playerName) => {
+        console.log(tipo)
         if(s.game.estadoAtual == s.game.estados.offline){
             s.game.newGame()
         }

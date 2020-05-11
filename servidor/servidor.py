@@ -24,15 +24,17 @@ class Servidor():
         self.contador = 0
     
     @sio.on('spawn')
-    def spawn(self, sid, data):
+    def spawn(sid, data):
         #Mandar mensagens depende da rede não acrescentar o delay de instanciar o objeto
-        self.sio.enter_room(sid, 'players')
+        print(sid)
+        print(data)
+        Servidor.sio.enter_room(sid, 'players')
         x, y = ThreadUpdate.mapa.gerador_posicao()
         
-        self.sio.emit('spawn', {'id':sid, 'x':x, 'y':y}, 'players')
+        Servidor.sio.emit('spawn', {'id':sid, 'posX':x, 'posY':y,'tipo':"personagem", 'nome':data}, 'players')
         
         #Cria o personagem e coloca na lista
-        personagem = Personagem(sid, x, y, self)
+        personagem = Personagem(sid, x, y, Servidor())
         
         ThreadUpdate.mapa.tiles[x][y] = sid
         ThreadUpdate.personagens.update({sid:personagem})
@@ -90,11 +92,11 @@ if __name__ == '__main__':
     #Valores iniciais para fazer o programa funcionar
     eventlet.monkey_patch()
     servidor = Servidor()
-    servidor.spawn(10, "Robson")
+    '''servidor.spawn(10, "Robson")
     servidor.move(10, "0 0")
     
     servidor.spawn(11, "Cherobim")
-    servidor.move(11, "0 0")
+    servidor.move(11, "0 0")'''
     
             
     t = ThreadUpdate(servidor)
@@ -119,7 +121,7 @@ if __name__ == '__main__':
     servidor.place_bomb(10, "5 5")
     servidor.place_bomb(10, "21 21")
     time.sleep(0.5)
-    servidor.place_bomb(10, "7 7")'''
+    servidor.place_bomb(10, "7 7")
 
     servidor.place_bomb(10, "33 34")
     time.sleep(0.3)
@@ -127,7 +129,7 @@ if __name__ == '__main__':
     time.sleep(0.3)
     servidor.place_bomb(10, "38 39")
     
-    '''while True:
+    while True:
         time.sleep(0.1)'''
       
         
