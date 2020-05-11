@@ -34,6 +34,7 @@ class ThreadUpdate(object):
         ThreadUpdate.threads.append(thread_bomba)
         
     def run(self):
+        time.sleep(0.5)
         contador = 0
         arbustos = [(10,10),(20,10),(20,20),(10,30),(30,20),(40,10),(10,40)]
         
@@ -69,7 +70,7 @@ class ThreadUpdate(object):
                 
             ThreadUpdate.lock.release()
             contador += 1
-            time.sleep(0.5)
+            time.sleep(0.0125)
 
     def update_bomba(self, bomba):
         time.sleep(bomba.timer)

@@ -11,7 +11,6 @@ import time
 
 from componentes.jogo.thread_update import ThreadUpdate
 from componentes.jogo.personagem import Personagem
-from componentes.jogo import personagem
 
 
 
@@ -21,16 +20,21 @@ class Servidor():
     sio = socketio.Server()
     contador_bomba = 0
     
+    def __init__(self):
+        self.contador = 0
+    
     @sio.on('spawn')
-    def spawn(self, sid, data):
+    def spawn(sid, data):
         #Mandar mensagens depende da rede não acrescentar o delay de instanciar o objeto
-        self.sio.enter_room(sid, 'players')
+        print(sid)
+        print(data)
+        Servidor.sio.enter_room(sid, 'players')
         x, y = ThreadUpdate.mapa.gerador_posicao()
         
-        self.sio.emit('spawn', {'id':sid, 'x':x, 'y':y}, 'players')
+        Servidor.sio.emit('spawn', {'id':sid, 'posX':x, 'posY':y,'tipo':"personagem", 'playerName':data}, 'players')
         
         #Cria o personagem e coloca na lista
-        personagem = Personagem(sid, x, y)
+        personagem = Personagem(sid, x, y, Servidor())
         
         ThreadUpdate.mapa.tiles[x][y] = sid
         ThreadUpdate.personagens.update({sid:personagem})
@@ -51,16 +55,16 @@ class Servidor():
             self.contador = 0
             
     @sio.on('move')
-    def move(self, sid, data):
+    def move(sid, direcao_x, direcao_y):
         #Recebe a direção de x e y
-        direcao_x, direcao_y = map(int, data.split())
+     
         
         #Atualiza as direções e acaba
         ThreadUpdate.personagens[sid].direcao_x = direcao_x
         ThreadUpdate.personagens[sid].direcao_y = direcao_y
         
         if(direcao_x == 0 and direcao_y == 0):
-            self.sio.emit('stopMove', {'id':sid}, 'players')
+            Servidor.sio.emit('stopMove', {'id':sid}, 'players')
  
     def game_over(self, sid):
         #Infoma por mensagem que um player saiu do jogo 
@@ -73,7 +77,7 @@ class Servidor():
         personagem.destruir()
         
     def emit_move(self, sid, x, y):
-        self.sio.emit('move', {'id':sid, 'x':x, 'y':y}, 'players')
+        self.sio.emit('move', {'id':sid, 'posX':x, 'posY':y}, 'players')
         
     def explode(self, bomba):
         #Emite a posição de onde a bomba foi clicada
@@ -88,14 +92,13 @@ if __name__ == '__main__':
     #Valores iniciais para fazer o programa funcionar
     eventlet.monkey_patch()
     servidor = Servidor()
-    servidor.spawn(10, "Robson")
+    '''servidor.spawn(10, "Robson")
     servidor.move(10, "0 0")
     
     servidor.spawn(11, "Cherobim")
-    servidor.move(11, "0 0")
+    servidor.move(11, "0 0")'''
     
             
-    t = ThreadUpdate(servidor)
     
 
     '''for i in range(11):
@@ -117,7 +120,7 @@ if __name__ == '__main__':
     servidor.place_bomb(10, "5 5")
     servidor.place_bomb(10, "21 21")
     time.sleep(0.5)
-    servidor.place_bomb(10, "7 7")'''
+    servidor.place_bomb(10, "7 7")
 
     servidor.place_bomb(10, "33 34")
     time.sleep(0.3)
@@ -126,9 +129,9 @@ if __name__ == '__main__':
     servidor.place_bomb(10, "38 39")
     
     while True:
-        time.sleep(0.1)
+        time.sleep(0.1)'''
       
-        
-    #app = socketio.WSGIApp(servidor.sio, static_files={})
-    #eventlet.wsgi.server(eventlet.listen(('127.0.0.1', 8080)), app)
+    t = ThreadUpdate(servidor)
+    app = socketio.WSGIApp(servidor.sio, static_files={'/': './client/'})
+    eventlet.wsgi.server(eventlet.listen(('127.0.0.1', 8080)), app)
     
