@@ -4,9 +4,7 @@ import socketio
 sio = socketio.Server()
 
 app = socketio.WSGIApp(sio, static_files={
-    '/': '.\client\index.html',
-    '/script1.js': '.\client\script1.js',
-    '/script2.js': '.\client\script2.js',
+    '/': './client/'
 })
 
 
