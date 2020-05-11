@@ -15,10 +15,10 @@ class Personagem(ObjetosDinamicos):
     #Constante de tempo.
     TIMER = 1.0
 
-    def __init__(self, sid, posicao_x, posicao_y,
+    def __init__(self, sid, posicao_x, posicao_y, servidor,
                  direcao_x = 0, direcao_y = 0,
                  raio_bomba = 3, count_bomba = 1,
-                 distancia_bomba = 1, angulo_bomba = 0, servidor):
+                 distancia_bomba = 1, angulo_bomba = 0):
 
         #Chama o construtor da classe mãe
         super().__init__(posicao_x, posicao_y)

@@ -11,7 +11,6 @@ import time
 
 from componentes.jogo.thread_update import ThreadUpdate
 from componentes.jogo.personagem import Personagem
-from componentes.jogo import personagem
 
 
 
@@ -20,6 +19,9 @@ class Servidor():
     
     sio = socketio.Server()
     contador_bomba = 0
+    
+    def __init__(self):
+        self.contador = 0
     
     @sio.on('spawn')
     def spawn(self, sid, data):
@@ -30,7 +32,7 @@ class Servidor():
         self.sio.emit('spawn', {'id':sid, 'x':x, 'y':y}, 'players')
         
         #Cria o personagem e coloca na lista
-        personagem = Personagem(sid, x, y)
+        personagem = Personagem(sid, x, y, self)
         
         ThreadUpdate.mapa.tiles[x][y] = sid
         ThreadUpdate.personagens.update({sid:personagem})
