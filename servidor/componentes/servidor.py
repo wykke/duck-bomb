@@ -129,6 +129,6 @@ if __name__ == '__main__':
         time.sleep(0.1)
       
         
-    #app = socketio.WSGIApp(servidor.sio, static_files={})
-    #eventlet.wsgi.server(eventlet.listen(('127.0.0.1', 8080)), app)
+    app = socketio.WSGIApp(servidor.sio, static_files={'/static': './client/'})
+    eventlet.wsgi.server(eventlet.listen(('127.0.0.1', 8080)), app)
     
