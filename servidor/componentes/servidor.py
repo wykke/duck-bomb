@@ -30,7 +30,8 @@ class Servidor():
         x, y = ThreadUpdate.mapa.gerador_posicao()
         
         Servidor.sio.emit('spawn', {'id':sid, 'posX':x, 'posY':y,'tipo':"personagem", 'playerName':data}, 'players')
-        
+        for p in ThreadUpdate.personagens.values():
+            Servidor.sio.emit('spawn', {'id':p.sid, 'posX':p.posicao_x, 'posY':p.posicao_y,'tipo':"personagem", 'playerName':"Inimigo"}, sid)
         #Cria o personagem e coloca na lista
         personagem = Personagem(sid, x, y, Servidor())
         
