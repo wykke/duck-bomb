@@ -19,9 +19,7 @@ class Servidor():
     
     sio = socketio.Server()
     contador_bomba = 0
-    
-    def __init__(self):
-        self.contador = 0
+    contador = 0
     
     @sio.on('spawn')
     def spawn(sid, data):
@@ -40,19 +38,17 @@ class Servidor():
         ThreadUpdate.personagens.update({sid:personagem})
     
     @sio.on('placeBomb')
-    def place_bomb(self, sid, data):
+    def place_bomb(sid, posX, posY):
         global t
 
         #Recebe a posição de onde a bomba foi clicada
-        x, y = map(int, data.split())
-        self.sio.emit('spawn', {'id':sid, 'x':x, 'y':y}, 'players')
+        Servidor.sio.emit('spawn', {'id':Servidor.contador, 'posX':posX, 'posY':posY,'tipo':"bomba"}, 'players')
         
         #Cria a bomba no servidor
-        ThreadUpdate.personagens[sid].criar_bomba(x, y, self.contador, 
-                                                  t)
-        self.contador += 1
-        if(self.contador > 100):
-            self.contador = 0
+        ThreadUpdate.personagens[sid].criar_bomba(posX, posY, Servidor.contador, t)
+        Servidor.contador += 1
+        if(Servidor.contador > 100):
+            Servidor.contador = 0
             
     @sio.on('move')
     def move(sid, direcao_x, direcao_y):
@@ -84,6 +80,7 @@ class Servidor():
         self.sio.emit('explodirBomba', {'id':bomba.bid}, 'players')
     
     def remove(self, rid):
+        print("Matar personagem Personagem")
         self.sio.emit('remove', {'id':rid}, 'players')
     
 

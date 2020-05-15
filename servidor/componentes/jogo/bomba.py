@@ -41,7 +41,7 @@ class Bomba(ObjetosDinamicos):
                         elemento = ThreadUpdate.mapa.tiles[i][j]
                         print(str(elemento) + str((i,j)))
                         
-                        if(isinstance(elemento, int)):
+                        if(isinstance(elemento, str)):
                             personagem = ThreadUpdate.personagens[elemento]
                             personagem.destruir()
                         elif(not isinstance(elemento, Arbusto)):
