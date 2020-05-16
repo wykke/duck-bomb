@@ -13,7 +13,7 @@ import math
 
 class Personagem(ObjetosDinamicos):
     #Constante de tempo.
-    TIMER = 1.0
+    TIMER = 0.4
 
     def __init__(self, sid, posicao_x, posicao_y, servidor,
                  direcao_x = 0, direcao_y = 0,

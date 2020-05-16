@@ -6,8 +6,6 @@ Created on 28 de abr de 2020
 
 Content: Classe Servidor. Usando Padrao de nome python PEP8.
 '''
-import sys
-sys.path.append("..")
 import eventlet
 import socketio
 import time
@@ -134,5 +132,5 @@ if __name__ == '__main__':
       
     t = ThreadUpdate(servidor)
     app = socketio.WSGIApp(servidor.sio, static_files={'/': './client/'})
-    eventlet.wsgi.server(eventlet.listen(('0.0.0.0', 12376)), app)
+    eventlet.wsgi.server(eventlet.listen(('127.0.0.1', 8080)), app)
     
