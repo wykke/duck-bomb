@@ -6,7 +6,7 @@ Created on 28 de abr de 2020
 Content: Classe Objetos dinamicos
 '''
 
-from abc import ABC, abstractmethod
+from abc import ABC
 
 class ObjetosDinamicos(ABC):
 
@@ -14,3 +14,6 @@ class ObjetosDinamicos(ABC):
         self.posicao_x = posicao_x
         self.posicao_y = posicao_y
         self.velocidade = velocidade
+    
+    def destruir(self):
+        pass

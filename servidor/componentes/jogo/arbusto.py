@@ -7,6 +7,7 @@ Content: Classe Arbusto
 '''
 from componentes.jogo.objetos_estaticos import ObjetosEstaticos
 import random
+
 from componentes.jogo.distancia_bomba import DistanciaBomba
 from componentes.jogo.multi_bomba import MultiBomba
 from componentes.jogo.raio_bomba import RaioBomba
@@ -14,13 +15,13 @@ from componentes.jogo.velocidade import Velocidade
 
 class Arbusto(ObjetosEstaticos):
     
-    def destruir(self, id):
+    def destruir(self, personagem):
         #Seleciona um poder
         objeto = self.is_power()
         
         if (objeto != None):
-            #Aplica o poder
-            objeto.power(id)
+            print("Aplica o poder")
+            objeto.poder(personagem)
             
             #Apaga o objeto que foi usado para fazer o poder
             del objeto
@@ -29,18 +30,20 @@ class Arbusto(ObjetosEstaticos):
        
     def is_power(self):
         
-        r = random.randint(0,20)
+        r = random.randint(0,5)
         
         #Switch implementado com dicionário 
         switcher = {
-            1: Velocidade(),
-            2: RaioBomba(),
-            3: DistanciaBomba(),
-            4: MultiBomba()
+            0: Velocidade(),
+            1: RaioBomba(),
+            2: DistanciaBomba(),
+            3: MultiBomba()
         }
         
-        #Escolher qual construtor será usado 
-        objeto = switcher.get(r, lambda: None)
-        
-        return objeto
+        #Escolher qual construtor será usado
+        if (r <= 3):
+            objeto = switcher.get(r, lambda: None)
+            return objeto
+        else:
+            return None
         
