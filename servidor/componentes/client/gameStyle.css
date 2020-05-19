@@ -3,6 +3,8 @@ body{
     margin: 0px;
     background-color: lightgreen;
 }
+
+/* SPLASH */
 .splash{
     display: flex;
     justify-content: center;

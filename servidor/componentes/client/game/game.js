@@ -21,7 +21,8 @@ export default class Game{
             this.spawnBomba(id, posicaoX, posicaoY)
     }
     newGame(){
-        this.canvas.style.backgroundColor = "black"
+        this.canvas.removeChild(this.canvas.querySelector(".splash"))
+        this.canvas.style.backgroundColor = "white"
         this.estadoAtual = this.estados.jogando
     }
     removerObjeto(id){
