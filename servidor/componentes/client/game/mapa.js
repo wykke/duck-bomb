@@ -3,7 +3,7 @@ export default class Mapa{
         this.objetos = new Map()
     }
     spawnObjeto(objeto){
-        document.getElementById("objetos").appendChild(objeto.dom)
+        document.getElementById("mapa").appendChild(objeto.dom)
         this.objetos.set(objeto.id, objeto)
     }
     removerObjeto(id){

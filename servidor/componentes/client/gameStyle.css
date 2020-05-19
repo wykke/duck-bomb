@@ -1,7 +1,25 @@
 body{
     overflow: hidden;
     margin: 0px;
+    background-color: lightgreen;
 }
+.splash{
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+}
+.splash > div{
+    margin-top: auto;
+    margin-bottom: auto;
+}
+.splash > div > img{
+    height: 50vh;
+}
+.splash > div > p{
+    text-align: center;
+    text-decoration: underline;
+}
+
 
 /* HUD */
 .hud{
