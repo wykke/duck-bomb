@@ -77,3 +77,17 @@ body{
     text-align: center;
     margin: 0px;
 }
+#mapa{
+    display: grid;
+    column-gap: 0px;
+    row-gap: 0px;
+}
+.chao{
+    background-color: lightgreen;
+    width: 10vh;
+    height: 10vh;
+    border: 0px;
+    border-right: 1px;
+    border-bottom: 1px;
+    border-style: solid;
+}

@@ -5,7 +5,7 @@ import Mapa from "./mapa.js"
 export default class Game{
     constructor(socket){
         this.canvas = document.getElementById("canvas")
-        this.mapa = new Mapa()
+        this.mapa = new Mapa(5, 7)
         this.socket = socket
         
         this.estados = {
@@ -24,6 +24,7 @@ export default class Game{
         this.canvas.removeChild(this.canvas.querySelector(".splash"))
         this.canvas.style.backgroundColor = "white"
         this.estadoAtual = this.estados.jogando
+        this.mapa.openMap()
     }
     removerObjeto(id){
         this.mapa.removerObjeto(id)
