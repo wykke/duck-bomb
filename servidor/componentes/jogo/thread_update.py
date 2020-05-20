@@ -72,7 +72,7 @@ class ThreadUpdate(object):
                 
             ThreadUpdate.lock.release()
             contador += 1
-            time.sleep(0.250)
+            time.sleep(0.400)
 
     def update_bomba(self, bomba):
         time.sleep(bomba.timer)

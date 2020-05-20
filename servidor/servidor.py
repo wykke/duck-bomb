@@ -46,7 +46,10 @@ class Servidor():
 
         #Recebe a posição de onde a bomba foi clicada
         #Cria a bomba no servidor
-        x, y = ThreadUpdate.personagens[sid].criar_bomba(posX, posY, Servidor.contador, t)
+        if sid in ThreadUpdate.personagens:
+            x, y = ThreadUpdate.personagens[sid].criar_bomba(posX, posY, Servidor.contador, t)
+        else:
+            return 
         Servidor.sio.emit('spawn', {'id':Servidor.contador, 'posX':x, 'posY':y,'tipo':"bomba"}, 'players')
         
         

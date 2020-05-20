@@ -26,10 +26,10 @@ class Bomba(ObjetosDinamicos):
         
     def destruir(self):
 
-        for i in range(self.posicao_final_x - self.raio_bomba, 
-                       self.posicao_final_x + self.raio_bomba, 1):
-            for j in range(self.posicao_final_y - self.raio_bomba, 
-                           self.posicao_final_y + self.raio_bomba, 1):
+        for i in range(int(self.posicao_final_x - self.raio_bomba), 
+                       int(self.posicao_final_x + self.raio_bomba), 1):
+            for j in range(int(self.posicao_final_y - self.raio_bomba), 
+                    int(self.posicao_final_y + self.raio_bomba), 1):
                  
                 teste = ((i-self.posicao_final_x)**2 + (j-self.posicao_final_y)**2 )/self.raio_bomba**2
                 
