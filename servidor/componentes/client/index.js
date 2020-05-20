@@ -5,7 +5,7 @@ const socket = new Socket()
 function startGame(){
     setTimeout(()=>{
         socket.game.newGame()
-        //socket.spawn(document.getElementById("nome").value)
+        socket.spawn(document.getElementById("nome").value)
     },200)
 }
 

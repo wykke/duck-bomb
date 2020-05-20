@@ -1,5 +1,5 @@
 body{
-    overflow: hidden;
+    /* overflow: hidden; */
     margin: 0px;
     background-color: lightgreen;
 }
@@ -60,20 +60,16 @@ body{
 }
 
 /* CANVAS */
-.objeto {
-    position: absolute;
-}
 .bomba > img {
     width: 40px;
     height: 40px;
 }
 .personagem > img {
-    width: 50px;
-    height: 50px;
+    width: 40%;
+    margin-left: auto;
+    margin-right: auto;
 }
-.personagem > p { 
-    display: block;
-    color: white;
+.personagem > p {
     text-align: center;
     margin: 0px;
 }
@@ -90,4 +86,5 @@ body{
     border-right: 1px;
     border-bottom: 1px;
     border-style: solid;
+    font-size: 2vmin;
 }

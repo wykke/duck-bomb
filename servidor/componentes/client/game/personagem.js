@@ -41,7 +41,5 @@ export default class Personagem extends Objeto{
 
         this.dom.appendChild(name)
         this.dom.appendChild(sprite)
-        this.dom.style.left = this.posicaoX+"px"
-        this.dom.style.top = this.posicaoY+"px"
     }
 }

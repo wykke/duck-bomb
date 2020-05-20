@@ -5,7 +5,7 @@ import Mapa from "./mapa.js"
 export default class Game{
     constructor(socket){
         this.canvas = document.getElementById("canvas")
-        this.mapa = new Mapa(5, 7)
+        this.mapa = new Mapa(50, 50)
         this.socket = socket
         
         this.estados = {
@@ -31,7 +31,7 @@ export default class Game{
     }
     spawnPersonagem(id, posicaoX, posicaoY, playerName){
         const novoPersonagem = new Personagem(id, playerName, posicaoX, posicaoY)
-        this.mapa.spawnObjeto(novoPersonagem)
+        this.mapa.spawnObjeto(novoPersonagem, posicaoX, posicaoY)
     }
     moverObjeto(id, posicaoX, posicaoY){
         this.mapa.objetos.get(id).mover(posicaoX, posicaoY)
@@ -41,7 +41,7 @@ export default class Game{
     }
     spawnBomba(id, posicaoX, posicaoY){
         const novaBomba = new Bomba(id, posicaoX, posicaoY)
-        this.mapa.spawnObjeto(novaBomba)
+        this.mapa.spawnObjeto(novaBomba, posicaoX, posicaoY)
         return novaBomba
     }
     detonarBomba(id){

@@ -1,7 +1,7 @@
 export default class Mapa{
     constructor(tamX, tamY){
         this.domMapa = document.getElementById("mapa")
-        this.chao = Array(tamX).fill(Array(tamY))
+        this.chao = [...Array(tamX)].map(()=>Array(tamY))
         this.tamX = tamX
         this.tamY = tamY
         this.objetos = new Map()
@@ -22,7 +22,8 @@ export default class Mapa{
         }
     }
     spawnObjeto(objeto, posX, posY){
-        document.getElementById("mapa").appendChild(objeto.dom)
+        console.log(posX, posY, this.chao[posX][posY])
+        this.chao[posX][posY].appendChild(objeto.dom)
         this.objetos.set(objeto.id, objeto)
     }
     removerObjeto(id){
