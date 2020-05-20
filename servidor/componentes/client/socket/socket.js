@@ -24,10 +24,14 @@ function setupSockets(s){
     const socket = s.socket
 
     socket.on('spawn', ({tipo, id, posX, posY, playerName}) => {
-        if(s.game.estadoAtual == s.game.estados.offline){
+        if(s.game.estadoAtual === s.game.estados.offline){
             s.game.newGame()
+            s.game.tipoSpawn[tipo](id, posX, posY, playerName, true)
+            console.log("seu personagem:",playerName)
+        }else{
+            s.game.tipoSpawn[tipo](id, posX, posY, playerName, false)
         }
-        s.game.tipoSpawn[tipo](id, posX, posY, playerName)
+        
     })
 
     socket.on('remove', ({id}) => {

@@ -15,8 +15,8 @@ export default class Game{
         this.estadoAtual = this.estados.offline
 
         this.tipoSpawn = []
-        this.tipoSpawn["personagem"] = (id, posicaoX, posicaoY, playerName) => 
-            this.spawnPersonagem(id, posicaoX, posicaoY, playerName)
+        this.tipoSpawn["personagem"] = (id, posicaoX, posicaoY, playerName, playerPrincipal) => 
+            this.spawnPersonagem(id, posicaoX, posicaoY, playerName, playerPrincipal)
         this.tipoSpawn["bomba"] = (id, posicaoX, posicaoY) => 
             this.spawnBomba(id, posicaoX, posicaoY)
     }
@@ -29,9 +29,10 @@ export default class Game{
     removerObjeto(id){
         this.mapa.removerObjeto(id)
     }
-    spawnPersonagem(id, posicaoX, posicaoY, playerName){
-        const novoPersonagem = new Personagem(id, playerName, posicaoX, posicaoY)
+    spawnPersonagem(id, posicaoX, posicaoY, playerName, playerPrincipal){
+        const novoPersonagem = new Personagem(id, playerName, posicaoX, posicaoY, playerPrincipal)
         this.mapa.spawnObjeto(novoPersonagem, posicaoX, posicaoY)
+        return novoPersonagem
     }
     moverObjeto(id, posicaoX, posicaoY){
         this.mapa.objetos.get(id).mover(posicaoX, posicaoY)

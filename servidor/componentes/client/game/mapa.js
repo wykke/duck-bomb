@@ -22,7 +22,6 @@ export default class Mapa{
         }
     }
     spawnObjeto(objeto, posX, posY){
-        console.log(posX, posY, this.chao[posX][posY])
         this.chao[posX][posY].appendChild(objeto.dom)
         this.objetos.set(objeto.id, objeto)
     }
