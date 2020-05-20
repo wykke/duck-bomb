@@ -36,11 +36,12 @@ class Bomba(ObjetosDinamicos):
                 
                 
                 if(teste <= 1):
-                    if(not ThreadUpdate.mapa.verfica(i, j) and 
+                    if(i < 0 or j < 0 or i >= 50 or j >= 50):
+                            continue
+                    elif(not ThreadUpdate.mapa.verfica(i, j) and 
                        not((i == self.posicao_final_x) and (j == self.posicao_final_y))):
                         elemento = ThreadUpdate.mapa.tiles[i][j]
                         print(str(elemento) + str((i,j)))
-                        
                         if(isinstance(elemento, str)):
                             personagem = ThreadUpdate.personagens[elemento]
                             personagem.destruir()
@@ -48,7 +49,7 @@ class Bomba(ObjetosDinamicos):
                             elemento.destruir()
                         else:
                             elemento.destruir(self.dono)
-                            
+                                
                         if(not isinstance(elemento, Pedra)):
                             ThreadUpdate.mapa.tiles[i][j] = 0
         
