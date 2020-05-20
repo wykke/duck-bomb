@@ -7,10 +7,12 @@ export default class Game{
         this.canvas = document.getElementById("canvas")
         this.mapa = new Mapa(50, 50)
         this.socket = socket
+        this.playerPrincipal
         
         this.estados = {
             offline: 0,
-            jogando: 1
+            jogando: 1,
+            gameOver: 2
         }
         this.estadoAtual = this.estados.offline
 
@@ -22,12 +24,22 @@ export default class Game{
     }
     newGame(){
         this.canvas.removeChild(this.canvas.querySelector(".splash"))
+        this.canvas.querySelector(".startGame").remove()
         this.canvas.style.backgroundColor = "white"
         this.estadoAtual = this.estados.jogando
         this.mapa.openMap()
     }
     removerObjeto(id){
-        this.mapa.removerObjeto(id)
+        if(id = this.playerPrincipal.id){
+            console.log("game over")
+            this.gameOver()
+        }
+        else
+            this.mapa.removerObjeto(id)
+    }
+    gameOver(){
+        this.estadoAtual = this.estados.gameOver
+        $(".gameOverSplash > div").load("../assets/gameOver.html")
     }
     spawnPersonagem(id, posicaoX, posicaoY, playerName, playerPrincipal){
         const novoPersonagem = new Personagem(id, playerName, posicaoX, posicaoY, playerPrincipal)

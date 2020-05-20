@@ -21,7 +21,15 @@ body{
     text-align: center;
     text-decoration: underline;
 }
-
+.gameOverSplash{
+    position: fixed;
+    width: 100%;
+    z-index: 3;
+}
+.gameOverSplash > div{
+    position: relative;
+    margin: auto;
+}
 
 /* HUD */
 .hud{
@@ -62,6 +70,7 @@ body{
 /* CANVAS */
 .objeto{
     position: relative;
+    z-index: 2;
 }
 .bomba > img {
     display: block;
