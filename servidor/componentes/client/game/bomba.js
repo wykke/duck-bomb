@@ -9,28 +9,22 @@ export default class Bomba extends Objeto{
 
         this.createDom()
     }
-    detonar(){
+    detonar(tamanho = 2){
         const animationDelay = 300
         const explosionDelay = 1000
-        this.dom.getElementsByTagName("img")[0].src = this.spriteExplosao
 
-        if(!document.hidden){
-            $(this.dom.getElementsByTagName("img")[0]).animate(
-                {
-                    width: "300px",
-                    height: "300px",
-                }, animationDelay)
-            $(this.dom).animate(
-                {
-                    top: (this.posicaoY-130)+"px",
-                    left: (this.posicaoX-130)+"px"
-                },animationDelay)
-        }
-        else{
-            this.dom.style.width = "300px"
-            this.dom.style.height = "300px"
-        }
+        const image = this.dom.getElementsByTagName("img")[0]
+        const left = -this.dom.parentElement.offsetWidth
+        const top = -this.dom.parentElement.offsetWidth-
+            this.dom.offsetTop+
+            this.dom.parentElement.offsetTop
 
+        image.src = this.spriteExplosao
+        image.style.position = "absolute"
+        image.style.width = (tamanho*2-1)+"00%"
+        image.style.left = left+"px"
+        image.style.top = top+"px"
+        
         return new Promise((resolve)=>{
             setTimeout(()=>{resolve()}, animationDelay+explosionDelay)
         })
@@ -41,7 +35,5 @@ export default class Bomba extends Objeto{
         sprite.src = this.spriteIdle
         
         this.dom.appendChild(sprite)
-        this.dom.style.left = this.posicaoX+"px"
-        this.dom.style.top = this.posicaoY+"px"
     }
 }

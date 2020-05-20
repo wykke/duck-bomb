@@ -1,17 +1,96 @@
-.objeto {
-    position: absolute;
+body{
+    overflow: hidden;
+    margin: 0px;
+    background-color: lightgreen;
+}
+
+/* SPLASH */
+.splash{
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+}
+.splash > div{
+    margin-top: auto;
+    margin-bottom: auto;
+}
+.splash > div > img{
+    height: 50vh;
+}
+.splash > div > p{
+    text-align: center;
+    text-decoration: underline;
+}
+
+
+/* HUD */
+.hud{
+    display: flex;
+    position: fixed;
+    height: 30px;
+    width: 100%;
+    background-color: cadetblue;
+    border: 0px;
+    border-bottom: 3px;
+    border-style: solid;
+}
+.hud > p{
+    margin-top: auto;
+    margin-bottom: auto;
+}
+.lifetext{
+    margin-left: 5px;
+}
+.life{
+    margin-left: 7px;
+    height: 100%;
+}
+.timer{
+    margin-left: 35%;
+}
+.espacamento{
+    height: 33px;
+}
+.startGame{
+    float: right;
+    margin-left: auto;
+    margin-right: 10px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+/* CANVAS */
+.objeto{
+    position: relative;
 }
 .bomba > img {
-    width: 40px;
-    height: 40px;
+    display: block;
+    width: 40%;
+    margin-left: auto;
+    margin-right: auto;
 }
 .personagem > img {
-    width: 50px;
-    height: 50px;
-}
-.personagem > p { 
     display: block;
-    color: white;
+    width: 40%;
+    margin-left: auto;
+    margin-right: auto;
+}
+.personagem > p {
     text-align: center;
     margin: 0px;
+}
+#mapa{
+    display: grid;
+    column-gap: 0px;
+    row-gap: 0px;
+}
+.chao{
+    background-color: lightgreen;
+    width: 10vh;
+    height: 10vh;
+    border: 0px;
+    border-right: 1px;
+    border-bottom: 1px;
+    border-style: solid;
+    font-size: 2vmin;
 }

@@ -1,33 +1,31 @@
 import Objeto from "./objeto.js"
 import sprites from "../assets/sprites.js"
+import Camera from "../input/camera.js"
 
 export default class Personagem extends Objeto{
-    constructor(id, playerName, posicaoX, posicaoY){
+    constructor(id, playerName, posicaoX, posicaoY, playerPrincipal){
         const spriteIdle = sprites.folder + sprites.persongemIdle
         super(id, posicaoX, posicaoY, spriteIdle)
 
         this.playerName = playerName
         this.spriteMovimento = sprites.folder + sprites.personagemMove
         this.isMoving = false
+        this.player = playerPrincipal
+        this.camera = undefined
 
         this.createDom()
+        if(this.player) {
+            this.camera = new Camera(this.dom)
+            this.camera.moveCamera()
+        }
     }
     mover(posicaoX, posicaoY){
-        const animationDelay = 10
+        const animationDelay = 100
         this.posicaoX = posicaoX
         this.posicaoY = posicaoY
-        this.dom.getElementsByTagName("img")[0].src = this.spriteMovimento
-
-        if(!document.hidden)
-            $(this.dom).animate(
-                {
-                    left: posicaoX+"px", 
-                    top: posicaoY+"px"
-                }, animationDelay)
-        else{
-            this.dom.style.left = posicaoX+"px"
-            this.dom.style.top = posicaoY+"px"
-        }
+        const local = document.querySelector(`[x="${posicaoX}"][y="${posicaoY}"]`)
+        local.appendChild(this.dom)
+        if(this.player) this.camera.moveCamera()
     }
     pararMover(){
         this.dom.getElementsByTagName("img")[0].src = this.spriteIdle
@@ -41,7 +39,5 @@ export default class Personagem extends Objeto{
 
         this.dom.appendChild(name)
         this.dom.appendChild(sprite)
-        this.dom.style.left = this.posicaoX+"px"
-        this.dom.style.top = this.posicaoY+"px"
     }
 }

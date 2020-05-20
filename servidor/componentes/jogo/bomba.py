@@ -52,4 +52,4 @@ class Bomba(ObjetosDinamicos):
                         if(not isinstance(elemento, Pedra)):
                             ThreadUpdate.mapa.tiles[i][j] = 0
         
-        self.servidor.remove(self.bid)
+        
