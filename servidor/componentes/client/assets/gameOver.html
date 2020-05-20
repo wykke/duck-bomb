@@ -1,0 +1,58 @@
+<style>
+    .gameOver{
+        display: flex;
+        justify-content: center;
+        height: 100vh;
+    }
+    .gameOverCard{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: 50%;
+        width: 50vh;
+        margin-top: auto;
+        margin-bottom: auto;
+        box-shadow: 4px 4px 20px 3px black;
+        background-color: cadetblue;
+    }
+    .gameOverCardTop{
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+    }
+    .gameOverCardTop > p{
+        text-align: center;
+        margin: auto;
+        font-size: xx-large;
+    }
+    .gameOverCardBottom{
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+    }
+    .gameOverCardBottom > button {
+        margin: auto;
+        width: 120px;
+        height: 60px;
+        background-color: lightgreen;
+        border: none;
+        box-shadow: 4px 4px 20px 0px black;
+    }
+</style>
+
+<div class="gameOver">
+    <div class="gameOverCard">
+        <div class="gameOverCardTop">
+            <p>Game Over!<br>🦆</p>
+        </div>
+        <div class="gameOverCardBottom">
+            <button onclick="reload()">jogar novamente</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    function reload(){
+        location.reload()
+    }
+</script>
