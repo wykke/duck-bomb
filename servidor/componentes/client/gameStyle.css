@@ -60,11 +60,17 @@ body{
 }
 
 /* CANVAS */
+.objeto{
+    position: relative;
+}
 .bomba > img {
-    width: 40px;
-    height: 40px;
+    display: block;
+    width: 40%;
+    margin-left: auto;
+    margin-right: auto;
 }
 .personagem > img {
+    display: block;
     width: 40%;
     margin-left: auto;
     margin-right: auto;

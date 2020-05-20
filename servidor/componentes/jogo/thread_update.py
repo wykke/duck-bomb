@@ -77,7 +77,7 @@ class ThreadUpdate(object):
         ThreadUpdate.lock.acquire()
         bomba.destruir()
         ThreadUpdate.lock.release()
-        print(time.clock(), end=" ")
+        #print(time.clock(), end=" ")
         print("Explodiu bomba...")
         self.servidor.explode(bomba)
         del bomba

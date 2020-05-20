@@ -45,9 +45,9 @@ export default class Game{
         this.mapa.spawnObjeto(novaBomba, posicaoX, posicaoY)
         return novaBomba
     }
-    detonarBomba(id){
+    detonarBomba(id, tamanho){
         if(this.mapa.objetos.get(id)) 
-            this.mapa.objetos.get(id).detonar().then(()=>{
+            this.mapa.objetos.get(id).detonar(tamanho).then(()=>{
                 this.mapa.removerObjeto(id)
             })
     }
