@@ -44,11 +44,13 @@ class Personagem(ObjetosDinamicos):
             self.angulo_bomba = math.atan2((x-self.posicao_x),(y-self.posicao_y))
             posicao_final_x = self.posicao_x + round(self.distancia_bomba*math.sin(self.angulo_bomba))
             posicao_final_y = self.posicao_y + round(self.distancia_bomba*math.cos(self.angulo_bomba))
+        
+        if(ThreadUpdate.mapa.verifica(posicao_final_x, posicao_final_y)):
+            bomba = Bomba(posicao_final_x, posicao_final_y, self, bid, self.servidor)
+            t.place_bomb(bomba)
+        else:
+            posicao_final_x, posicao_final_y = -1, -1
 
-        
-        bomba = Bomba(posicao_final_x, posicao_final_y, self, bid, self.servidor)
-        t.place_bomb(bomba)
-        
         return (posicao_final_x, posicao_final_y)
         
     def andar(self, x, y):

@@ -38,7 +38,7 @@ class Bomba(ObjetosDinamicos):
                 if(teste <= 1):
                     if(i < 0 or j < 0 or i >= 50 or j >= 50):
                             continue
-                    elif(not ThreadUpdate.mapa.verfica(i, j) and 
+                    elif(not ThreadUpdate.mapa.verifica(i, j) and 
                        not((i == self.posicao_final_x) and (j == self.posicao_final_y))):
                         elemento = ThreadUpdate.mapa.tiles[i][j]
                         print(str(elemento) + str((i,j)))

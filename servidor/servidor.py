@@ -50,12 +50,11 @@ class Servidor():
             x, y = ThreadUpdate.personagens[sid].criar_bomba(posX, posY, Servidor.contador, t)
         else:
             return 
-        Servidor.sio.emit('spawn', {'id':Servidor.contador, 'posX':x, 'posY':y,'tipo':"bomba"}, 'players')
-        
-        
-        Servidor.contador += 1
-        if(Servidor.contador > 100):
-            Servidor.contador = 0
+        if(x > 0 and y > 0):
+            Servidor.sio.emit('spawn', {'id':Servidor.contador, 'posX':x, 'posY':y,'tipo':"bomba"}, 'players')
+            Servidor.contador += 1
+            if(Servidor.contador > 100):
+                Servidor.contador = 0
             
     @sio.on('move')
     def move(sid, direcao_x, direcao_y):
@@ -104,5 +103,5 @@ if __name__ == '__main__':
       
     t = ThreadUpdate(servidor)
     app = socketio.WSGIApp(servidor.sio, static_files={'/': './client/'})
-    eventlet.wsgi.server(eventlet.listen(('0.0.0.0', 12376)), app)
+    eventlet.wsgi.server(eventlet.listen(('127.0.0.1', 12376)), app)
     

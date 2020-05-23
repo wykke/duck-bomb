@@ -58,7 +58,7 @@ class ThreadUpdate(object):
                         personagem.posicao_x += personagem.direcao_x*personagem.velocidade
                         personagem.posicao_y += personagem.direcao_y*personagem.velocidade
                         
-                        if(not ThreadUpdate.mapa.verfica(personagem.posicao_x, 
+                        if(not ThreadUpdate.mapa.verifica(personagem.posicao_x, 
                                                          personagem.posicao_y)):
                             personagem.posicao_x = posicao_antiga_x
                             personagem.posicao_y = posicao_antiga_y
