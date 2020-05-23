@@ -7,7 +7,6 @@ Created on 28 de abr de 2020
 Content: Classe Servidor. Usando Padrao de nome python PEP8.
 '''
 import sys
-from componentes.jogo import personagem
 sys.path.append("..")
 import eventlet
 import socketio
