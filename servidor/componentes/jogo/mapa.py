@@ -8,7 +8,7 @@ from componentes.jogo.arbusto import Arbusto
 from componentes.jogo.pedra import Pedra
 from random import randint
 
-TAM = 300
+TAM = 50
 
 class Mapa():
     
@@ -32,7 +32,9 @@ class Mapa():
         self.tiles[40][10]=Arbusto(40,10,True)
         self.tiles[10][40]=Arbusto(10,40,True)
 
-    def verfica(self, X, Y):
+    def verifica(self, X, Y):
+        global TAM
+        
         if(self.tiles[X][Y]):
             return False
         else:
@@ -43,7 +45,7 @@ class Mapa():
         x = randint(1,48)
         y = randint(1,48)
         
-        while(not self.verfica(x,y)):
+        while(not self.verifica(x,y)):
             x = randint(1,48)
             y = randint(1,48)
             
