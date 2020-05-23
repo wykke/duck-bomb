@@ -4,7 +4,6 @@ const socket = new Socket()
 
 function startGame(){
     setTimeout(()=>{
-        socket.game.newGame()
         socket.spawn(document.getElementById("nome").value)
     },200)
 }
@@ -23,6 +22,11 @@ document.onkeydown = function(event){
 }
 document.addEventListener("click", (event)=>{
     if(socket.game.estadoAtual == socket.game.estados.jogando){
-        socket.input.playerClick(event.clientX, event.clientY)
+        const target = event.target
+        const clientX = Number.parseInt(target.getAttribute("x"))
+        const clientY = Number.parseInt(target.getAttribute("y"))
+        if(clientX){
+            socket.input.playerClick(clientX, clientY)
+        }
     }
 }, false);
