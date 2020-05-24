@@ -3,6 +3,9 @@ body{
     margin: 0px;
     background-color: lightgreen;
 }
+img{
+    pointer-events: none;
+}
 
 /* SPLASH */
 .splash{
@@ -69,7 +72,10 @@ body{
 
 /* CANVAS */
 .objeto{
-    position: relative;
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
     height: 100%;
     z-index: 2;
 }
@@ -100,6 +106,7 @@ body{
     row-gap: 0px;
 }
 .chao{
+    position: relative;
     background-color: lightgreen;
     width: 10vh;
     height: 10vh;

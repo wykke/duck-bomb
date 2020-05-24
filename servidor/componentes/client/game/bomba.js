@@ -14,16 +14,12 @@ export default class Bomba extends Objeto{
         const explosionDelay = 1000
 
         const image = this.dom.getElementsByTagName("img")[0]
-        const left = -this.dom.parentElement.offsetWidth
-        const top = -this.dom.parentElement.offsetWidth-
-            this.dom.offsetTop+
-            this.dom.parentElement.offsetTop
 
         image.src = this.spriteExplosao
-        image.style.position = "absolute"
+        image.style.position = "relative"
         image.style.width = (tamanho*2-1)+"00%"
-        image.style.left = left+"px"
-        image.style.top = top+"px"
+        image.style.left = "-10vh"
+        image.style.top = "-10vh"
         
         return new Promise((resolve)=>{
             setTimeout(()=>{resolve()}, animationDelay+explosionDelay)
