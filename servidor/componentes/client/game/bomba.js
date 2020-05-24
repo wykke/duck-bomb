@@ -4,7 +4,7 @@ import sprites from "../assets/sprites.js"
 export default class Bomba extends Objeto{
     constructor(id, posicaoX, posicaoY){
         const spriteIdle = sprites.folder + sprites.bomba
-        super(id, posicaoX-20, posicaoY-20, spriteIdle)
+        super(id, posicaoX, posicaoY, spriteIdle)
         this.spriteExplosao = sprites.folder + sprites.bombaExplosao
 
         this.createDom()

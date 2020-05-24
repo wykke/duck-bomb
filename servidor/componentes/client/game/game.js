@@ -2,6 +2,8 @@ import Personagem from "./personagem.js"
 import Bomba from "./bomba.js"
 import Mapa from "./mapa.js"
 
+import Arbusto from "./estaticos/arbusto.js"
+
 export default class Game{
     constructor(socket){
         this.canvas = document.getElementById("canvas")
@@ -28,6 +30,8 @@ export default class Game{
         this.canvas.style.backgroundColor = "white"
         this.estadoAtual = this.estados.jogando
         this.mapa.openMap()
+
+        this.mapa.spawnObjeto(new Arbusto(123456, 0, 0), 0, 0)
     }
     removerObjeto(id){
         if(id === this.playerPrincipal.id){

@@ -13,5 +13,12 @@ export default {
     personagemIdleEsquerda: "personagem/idleEsquerda.png",
     personagemMoveEsquerda: "personagem/moveEsquerda.gif",
 
-    chao: "mapa/grama.jpg"
+    chao: "mapa/grama.jpg",
+    arbusto: "mapa/arbusto.png",
+    pedra: "mapa/pedra.png",
+
+    arremesso: "powerup/arremesso.png",
+    multiBomba: "powerup/multiBomba.png",
+    superBomba: "powerup/superBomba.png",
+    velocidade: "powerup/velocidade.png",
 }
