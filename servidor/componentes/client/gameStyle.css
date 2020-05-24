@@ -70,22 +70,28 @@ body{
 /* CANVAS */
 .objeto{
     position: relative;
+    height: 100%;
     z-index: 2;
 }
 .bomba > img {
     display: block;
-    width: 40%;
+    width: 100%;
     margin-left: auto;
     margin-right: auto;
 }
+.personagem{
+    position: relative;
+    top: -3vh;
+}
 .personagem > img {
     display: block;
-    width: 40%;
+    height: 100%;
     margin-left: auto;
     margin-right: auto;
 }
 .personagem > p {
     text-align: center;
+    font-size: 2vh;
     margin: 0px;
 }
 #mapa{

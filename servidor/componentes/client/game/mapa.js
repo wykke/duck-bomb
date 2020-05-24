@@ -5,6 +5,7 @@ export default class Mapa{
         this.tamX = tamX
         this.tamY = tamY
         this.objetos = new Map()
+        this.debug = false
  
         this.domMapa.style.gridTemplateColumns = `repeat(${tamX}, min-content)`
     }
@@ -15,7 +16,7 @@ export default class Mapa{
                 dom.classList.add("chao")
                 dom.setAttribute("x",x)
                 dom.setAttribute("y",y)
-                dom.innerText = `(${x}, ${y})`
+                if(this.debug) dom.innerText = `(${x}, ${y})`
                 this.domMapa.appendChild(dom)
                 this.chao[x][y] = dom
             }

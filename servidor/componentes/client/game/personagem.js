@@ -20,12 +20,13 @@ export default class Personagem extends Objeto{
         }
     }
     mover(posicaoX, posicaoY){
-        const animationDelay = 100
-        this.posicaoX = posicaoX
-        this.posicaoY = posicaoY
-        const local = document.querySelector(`[x="${posicaoX}"][y="${posicaoY}"]`)
-        local.appendChild(this.dom)
-        if(this.player) this.camera.moveCamera()
+        if(this.posicaoX != posicaoX || this.posicaoY != posicaoY){
+            this.posicaoX = posicaoX
+            this.posicaoY = posicaoY
+            const local = document.querySelector(`[x="${posicaoX}"][y="${posicaoY}"]`)
+            local.appendChild(this.dom)
+            if(this.player) this.camera.moveCamera()
+        }else if(this.player) this.camera.moveCamera()
     }
     pararMover(){
         this.dom.getElementsByTagName("img")[0].src = this.spriteIdle
