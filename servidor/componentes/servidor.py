@@ -109,5 +109,5 @@ if __name__ == '__main__':
       
     t = ThreadUpdate(servidor)
     app = socketio.WSGIApp(servidor.sio, static_files={'/': './client/'})
-    eventlet.wsgi.server(eventlet.listen(('127.0.0.1', 12376)), app)
+    eventlet.wsgi.server(eventlet.listen(('0.0.0.0', 12376)), app)
     
