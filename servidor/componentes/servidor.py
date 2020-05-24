@@ -14,14 +14,14 @@ import time
 
 from componentes.jogo.thread_update import ThreadUpdate
 from componentes.jogo.personagem import Personagem
-
+from componentes.jogo.pedra import Pedra
+from componentes.jogo.arbusto import Arbusto
 
 
 
 class Servidor():
     
     sio = socketio.Server()
-    contador_bomba = 0
     contador = 0
     
     @sio.on('spawn')
@@ -31,6 +31,13 @@ class Servidor():
         x, y = ThreadUpdate.mapa.gerador_posicao()
         
         Servidor.sio.emit('spawn', {'id':sid, 'posX':x, 'posY':y,'tipo':"personagem", 'playerName':data}, 'players')
+        for i in range(50):
+            for j in range(50):
+                if(isinstance(ThreadUpdate.mapa.tiles[i][j], Pedra)):
+                    Servidor.sio.emit('spawn', {'id':ThreadUpdate.mapa.tiles[i][j].oid, 'posX':i, 'posY':j,'tipo':"pedra"}, sid)
+                elif(isinstance(ThreadUpdate.mapa.tiles[i][j], Arbusto)):
+                    Servidor.sio.emit('spawn', {'id':ThreadUpdate.mapa.tiles[i][j].oid, 'posX':i, 'posY':j,'tipo':"arbusto"}, sid)
+
         for p in ThreadUpdate.personagens.values():
             Servidor.sio.emit('spawn', {'id':p.sid, 'posX':p.posicao_x, 'posY':p.posicao_y,'tipo':"personagem", 'playerName':p.nome}, sid)
         #Cria o personagem e coloca na lista
