@@ -18,11 +18,9 @@ class Arbusto(ObjetosEstaticos):
     def destruir(self, personagem):
         #Seleciona um poder
         objeto = self.is_power()
-        
         if (objeto != None):
             print("Aplica o poder")
             objeto.poder(personagem)
-            
             #Apaga o objeto que foi usado para fazer o poder
             del objeto
 
