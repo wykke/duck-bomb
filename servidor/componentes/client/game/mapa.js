@@ -1,3 +1,5 @@
+import sprites from "../assets/sprites.js"
+
 export default class Mapa{
     constructor(tamX, tamY){
         this.domMapa = document.getElementById("mapa")
@@ -6,6 +8,7 @@ export default class Mapa{
         this.tamY = tamY
         this.objetos = new Map()
         this.debug = false
+        this.spritesChao = sprites.folder+sprites.chao
  
         this.domMapa.style.gridTemplateColumns = `repeat(${tamX}, min-content)`
     }
@@ -16,6 +19,10 @@ export default class Mapa{
                 dom.classList.add("chao")
                 dom.setAttribute("x",x)
                 dom.setAttribute("y",y)
+                let sprite = document.createElement("img")
+                sprite.src = this.spritesChao
+                dom.appendChild(sprite)
+
                 if(this.debug) dom.innerText = `(${x}, ${y})`
                 this.domMapa.appendChild(dom)
                 this.chao[x][y] = dom

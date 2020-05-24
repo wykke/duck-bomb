@@ -116,3 +116,7 @@ img{
     border-style: solid;
     font-size: 2vmin;
 }
+.chao > img{
+    width: 100%;
+    height: 100%;
+}
