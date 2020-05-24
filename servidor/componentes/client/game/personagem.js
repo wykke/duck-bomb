@@ -28,7 +28,7 @@ export default class Personagem extends Objeto{
         if(this.posicaoX != posicaoX || this.posicaoY != posicaoY){
             const x = posicaoX - this.posicaoX
             const y = posicaoY - this.posicaoY
-            this.sprite.src = this.spriteMoveDirecao[x+""][-y+""]
+            if(x && y) this.sprite.src = this.spriteMoveDirecao[x+""][-y+""]
 
             const timerCamera = setInterval(()=>{
                 if(this.player) this.camera.moveCamera()
@@ -45,7 +45,7 @@ export default class Personagem extends Objeto{
                 this.dom.style.left = "0"
                 this.dom.style.top = "-3vh"
                 local.appendChild(this.dom)
-                this.sprite.src = this.spriteIdleDirecao[x+""][-y+""]
+                if(x && y) this.sprite.src = this.spriteIdleDirecao[x+""][-y+""]
             })
         } 
         if(this.player) this.camera.moveCamera()

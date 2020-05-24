@@ -30,7 +30,7 @@ export default class Game{
         this.mapa.openMap()
     }
     removerObjeto(id){
-        if(id = this.playerPrincipal.id){
+        if(id === this.playerPrincipal.id){
             console.log("game over")
             this.gameOver()
         }
