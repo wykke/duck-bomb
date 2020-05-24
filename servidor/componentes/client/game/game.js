@@ -3,6 +3,7 @@ import Bomba from "./bomba.js"
 import Mapa from "./mapa.js"
 
 import Arbusto from "./estaticos/arbusto.js"
+import Pedra from "./estaticos/pedra.js"
 
 export default class Game{
     constructor(socket){
@@ -31,7 +32,7 @@ export default class Game{
         this.estadoAtual = this.estados.jogando
         this.mapa.openMap()
 
-        this.mapa.spawnObjeto(new Arbusto(123456, 0, 0), 0, 0)
+        this.mapa.spawnObjeto(new Pedra(123456, 0, 0), 0, 0)
     }
     removerObjeto(id){
         if(id === this.playerPrincipal.id){
