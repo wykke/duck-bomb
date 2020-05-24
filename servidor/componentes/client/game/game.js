@@ -2,6 +2,14 @@ import Personagem from "./personagem.js"
 import Bomba from "./bomba.js"
 import Mapa from "./mapa.js"
 
+import Arbusto from "./estaticos/arbusto.js"
+import Pedra from "./estaticos/pedra.js"
+
+import Arremesso from "./powerup/arremesso.js"
+import MultiBomba from "./powerup/multiBomba.js"
+import SuperBomba from "./powerup/superBomba.js"
+import Velocidade from "./powerup/velocidade.js"
+
 export default class Game{
     constructor(socket){
         this.canvas = document.getElementById("canvas")
@@ -30,7 +38,7 @@ export default class Game{
         this.mapa.openMap()
     }
     removerObjeto(id){
-        if(id = this.playerPrincipal.id){
+        if(id === this.playerPrincipal.id){
             console.log("game over")
             this.gameOver()
         }
@@ -41,6 +49,20 @@ export default class Game{
         this.estadoAtual = this.estados.gameOver
         $(".gameOverSplash > div").load("../assets/gameOver.html")
     }
+    spawnObject(tipo, id, posicaoX, posicaoY){
+        const tipos = {
+            "arbusto": () => new Arbusto(id, posicaoX, posicaoY),
+            "pedra": () => new Pedra(id, posicaoX, posicaoY),
+
+            "arremesso": () => new Arremesso(id, posicaoX, posicaoY),
+            "multibomba": () => new MultiBomba(id, posicaoX, posicaoY),
+            "superbomba": () => new SuperBomba(id, posicaoX, posicaoY),
+            "velocidade": () => new Velocidade(id, posicaoX, posicaoY),
+        }
+        const novoObjeto = tipos[tipo]()
+        this.mapa.spawnObjeto(novoObjeto, posicaoX, posicaoY)
+        return novoObjeto
+    }
     spawnPersonagem(id, posicaoX, posicaoY, playerName, playerPrincipal){
         const novoPersonagem = new Personagem(id, playerName, posicaoX, posicaoY, playerPrincipal)
         this.mapa.spawnObjeto(novoPersonagem, posicaoX, posicaoY)
@@ -48,9 +70,6 @@ export default class Game{
     }
     moverObjeto(id, posicaoX, posicaoY){
         this.mapa.objetos.get(id).mover(posicaoX, posicaoY)
-    }
-    pararMoverObjeto(id){
-        this.mapa.objetos.get(id).pararMover()
     }
     spawnBomba(id, posicaoX, posicaoY){
         const novaBomba = new Bomba(id, posicaoX, posicaoY)

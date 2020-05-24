@@ -3,6 +3,9 @@ body{
     margin: 0px;
     background-color: lightgreen;
 }
+img{
+    pointer-events: none;
+}
 
 /* SPLASH */
 .splash{
@@ -69,24 +72,36 @@ body{
 
 /* CANVAS */
 .objeto{
-    position: relative;
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    height: 100%;
     z-index: 2;
 }
 .bomba > img {
     display: block;
-    width: 40%;
+    width: 100%;
     margin-left: auto;
     margin-right: auto;
 }
+.personagem{
+    position: relative;
+    top: -3vh;
+}
 .personagem > img {
     display: block;
-    width: 40%;
+    height: 100%;
     margin-left: auto;
     margin-right: auto;
 }
 .personagem > p {
     text-align: center;
+    font-size: 2vh;
     margin: 0px;
+    background-color: white;
+    border: solid 1px;
+    border-radius: 30%;
 }
 #mapa{
     display: grid;
@@ -94,6 +109,7 @@ body{
     row-gap: 0px;
 }
 .chao{
+    position: relative;
     background-color: lightgreen;
     width: 10vh;
     height: 10vh;
@@ -102,4 +118,31 @@ body{
     border-bottom: 1px;
     border-style: solid;
     font-size: 2vmin;
+}
+.chao > img{
+    width: 100%;
+    height: 100%;
+}
+.arbusto > img{
+    width: 100%;
+    height: 100%;
+}
+.pedra > img{
+    width: 100%;
+    height: 100%;
+}
+
+/* POWER UP */
+.powerUp{
+    width: 100%;
+    height: 100%;
+}
+.powerUp > img{
+    display: block;
+    height: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: purple;
+    border: solid 4px yellow;
+    border-radius: 20%;
 }

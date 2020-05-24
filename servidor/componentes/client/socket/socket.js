@@ -28,10 +28,11 @@ function setupSockets(s){
             s.game.newGame()
             s.game.playerPrincipal = s.game.tipoSpawn[tipo](id, posX, posY, playerName, true)
             console.log("seu personagem:",playerName)
-        }else{
+            console.log("seu id:",id)
+        }else if(s.game.tipoSpawn[tipo]) 
             s.game.tipoSpawn[tipo](id, posX, posY, playerName, false)
-        }
-        
+        else
+            s.game.spawnObject(tipo, id, posX, posY)
     })
 
     socket.on('remove', ({id}) => {

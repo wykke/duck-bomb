@@ -7,22 +7,29 @@ export default class Input{
             keyUp: 38,
             keyRight: 39,
             keyDown: 40,
-            vetores: [
-                {x:-1, y:0},
-                {x:0, y:-1},
-                {x:1, y:0},
-                {x:0, y:1},
-            ],
+            keyW: 87,
+            keyA: 65,
+            keyS: 83,
+            keyD: 68,
+            vetores: {
+                37: {x:-1, y:0},
+                38: {x:0, y:-1},
+                39: {x:1, y:0},
+                40: {x:0, y:1},
+                65: {x:-1, y:0},
+                87: {x:0, y:-1},
+                68: {x:1, y:0},
+                83: {x:0, y:1},
+            },
             getVetor: function(vkey){
-                return this.vetores[vkey-this.keyLeft]
+                return this.vetores[vkey]
             }
         }
     }
     playerKeyDown(event) {
-        const xAtual = this.playerVetor.x
-        const yAtual = this.playerVetor.y
-
         if(this.key.getVetor(event.keyCode)){
+            const xAtual = this.playerVetor.x
+            const yAtual = this.playerVetor.y
             this.playerVetor.x = this.key.getVetor(event.keyCode).x || this.playerVetor.x
             this.playerVetor.y = this.key.getVetor(event.keyCode).y || this.playerVetor.y
 
