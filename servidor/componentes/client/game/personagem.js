@@ -4,11 +4,11 @@ import Camera from "../input/camera.js"
 
 export default class Personagem extends Objeto{
     constructor(id, playerName, posicaoX, posicaoY, playerPrincipal){
-        const spriteIdle = sprites.folder + sprites.persongemIdle
+        const spriteIdle = sprites.folder + sprites.personagemIdleDireita
         super(id, posicaoX, posicaoY, spriteIdle)
 
         this.playerName = playerName
-        this.spriteMovimento = sprites.folder + sprites.personagemMove
+        this.spriteMovimento = sprites.folder + sprites.personagemMoveDireita
         this.isMoving = false
         this.player = playerPrincipal
         this.camera = undefined
