@@ -28,6 +28,7 @@ function setupSockets(s){
             s.game.newGame()
             s.game.playerPrincipal = s.game.tipoSpawn[tipo](id, posX, posY, playerName, true)
             console.log("seu personagem:",playerName)
+            console.log("seu id:",id)
         }else{
             s.game.tipoSpawn[tipo](id, posX, posY, playerName, false)
         }
