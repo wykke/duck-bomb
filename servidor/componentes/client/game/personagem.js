@@ -28,6 +28,8 @@ export default class Personagem extends Objeto{
         if(this.posicaoX != posicaoX || this.posicaoY != posicaoY){
             const x = posicaoX - this.posicaoX
             const y = posicaoY - this.posicaoY
+            this.posicaoX = posicaoX
+            this.posicaoY = posicaoY
             if(x || y) this.sprite.src = this.spriteMoveDirecao[x+""][-y+""]
 
             const timerCamera = setInterval(()=>{
@@ -39,8 +41,6 @@ export default class Personagem extends Objeto{
                 left: 10*x+"vh",
                 top: (10*y)-3+"vh"
             }, animationDelay, ()=>{
-                this.posicaoX = posicaoX
-                this.posicaoY = posicaoY
                 const local = document.querySelector(`[x="${posicaoX}"][y="${posicaoY}"]`)
                 this.dom.style.left = "0"
                 this.dom.style.top = "-3vh"
