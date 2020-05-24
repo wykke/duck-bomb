@@ -131,3 +131,18 @@ img{
     width: 100%;
     height: 100%;
 }
+
+/* POWER UP */
+.powerUp{
+    width: 100%;
+    height: 100%;
+}
+.powerUp > img{
+    display: block;
+    height: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: purple;
+    border: solid 4px yellow;
+    border-radius: 20%;
+}

@@ -5,6 +5,11 @@ import Mapa from "./mapa.js"
 import Arbusto from "./estaticos/arbusto.js"
 import Pedra from "./estaticos/pedra.js"
 
+import Arremesso from "./powerup/arremesso.js"
+import MultiBomba from "./powerup/multiBomba.js"
+import SuperBomba from "./powerup/superBomba.js"
+import Velocidade from "./powerup/velocidade.js"
+
 export default class Game{
     constructor(socket){
         this.canvas = document.getElementById("canvas")
@@ -32,7 +37,10 @@ export default class Game{
         this.estadoAtual = this.estados.jogando
         this.mapa.openMap()
 
-        this.mapa.spawnObjeto(new Pedra(123456, 0, 0), 0, 0)
+        this.mapa.spawnObjeto(new Arremesso(123456, 0, 0), 0, 0)
+        this.mapa.spawnObjeto(new MultiBomba(123456, 1, 0), 1, 0)
+        this.mapa.spawnObjeto(new SuperBomba(123456, 2, 0), 2, 0)
+        this.mapa.spawnObjeto(new Velocidade(123456, 3, 0), 3, 0)
     }
     removerObjeto(id){
         if(id === this.playerPrincipal.id){
@@ -53,9 +61,6 @@ export default class Game{
     }
     moverObjeto(id, posicaoX, posicaoY){
         this.mapa.objetos.get(id).mover(posicaoX, posicaoY)
-    }
-    pararMoverObjeto(id){
-        this.mapa.objetos.get(id).pararMover()
     }
     spawnBomba(id, posicaoX, posicaoY){
         const novaBomba = new Bomba(id, posicaoX, posicaoY)

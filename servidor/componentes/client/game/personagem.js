@@ -50,9 +50,6 @@ export default class Personagem extends Objeto{
         } 
         if(this.player) this.camera.moveCamera()
     }
-    pararMover(){
-        this.dom.getElementsByTagName("img")[0].src = this.spriteIdle
-    }
     createDom(){
         this.dom.classList.add("personagem")
         this.sprite = document.createElement("img")
