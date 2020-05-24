@@ -36,11 +36,6 @@ export default class Game{
         this.canvas.style.backgroundColor = "white"
         this.estadoAtual = this.estados.jogando
         this.mapa.openMap()
-
-        this.mapa.spawnObjeto(new Arremesso(123456, 0, 0), 0, 0)
-        this.mapa.spawnObjeto(new MultiBomba(123456, 1, 0), 1, 0)
-        this.mapa.spawnObjeto(new SuperBomba(123456, 2, 0), 2, 0)
-        this.mapa.spawnObjeto(new Velocidade(123456, 3, 0), 3, 0)
     }
     removerObjeto(id){
         if(id === this.playerPrincipal.id){
@@ -53,6 +48,20 @@ export default class Game{
     gameOver(){
         this.estadoAtual = this.estados.gameOver
         $(".gameOverSplash > div").load("../assets/gameOver.html")
+    }
+    spawnObject(tipo, id, posicaoX, posicaoY){
+        const tipos = {
+            "arbusto": () => new Arbusto(id, posicaoX, posicaoY),
+            "pedra": () => new Pedra(id, posicaoX, posicaoY),
+
+            "arremesso": () => new Arremesso(id, posicaoX, posicaoY),
+            "multibomba": () => new MultiBomba(id, posicaoX, posicaoY),
+            "superbomba": () => new SuperBomba(id, posicaoX, posicaoY),
+            "velocidade": () => new Velocidade(id, posicaoX, posicaoY),
+        }
+        const novoObjeto = tipos[tipo]()
+        this.mapa.spawnObjeto(novoObjeto, posicaoX, posicaoY)
+        return novoObjeto
     }
     spawnPersonagem(id, posicaoX, posicaoY, playerName, playerPrincipal){
         const novoPersonagem = new Personagem(id, playerName, posicaoX, posicaoY, playerPrincipal)
