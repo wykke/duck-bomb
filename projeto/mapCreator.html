@@ -8,7 +8,11 @@
         body{
             margin: 0px;
         }
+        img{
+            pointer-events: none;
+        }
         .chao{
+            position: relative;
             background-color: lightgreen;
             width: 10vh;
             height: 10vh;
@@ -16,8 +20,12 @@
             border-bottom: solid 1px;
         }
         .chao > img{
+            position: absolute;
             width: 100%;
             height: 100%;
+            left: 0px;
+            top: 0px;
+            z-index: 1;
         }
         .hud{
             display: flex;
@@ -40,9 +48,6 @@
             margin-left: 7px;
             height: 100%;
         }
-        .timer{
-            margin-left: 35%;
-        }
         .espacamento{
             height: 33px;
         }
@@ -58,15 +63,53 @@
             margin-left: auto;
             margin-right: auto;
         }
+        .objeto{
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+        }
+        .menu {
+            width: 120px;
+            background-color: white;
+            box-shadow: 0 4px 5px 3px rgba(0, 0, 0, 0.2);
+            position: absolute;
+            display: none;
+            z-index: 2;
+        }
+        .menu-options {
+            list-style: none;
+            padding: 10px 0;
+        }
+        .menu-option {
+            font-weight: 500;
+            font-size: 14px;
+            padding: 10px 40px 10px 20px;
+            cursor: pointer;
+        }
+        .menu-option:hover {
+            background: rgba(0, 0, 0, 0.2);
+        }          
     </style>
 </head>
 <body>
+    <div class="menu">
+        <ul class="menu-options">
+            <li onClick="remove()" class="menu-option">Remove</li>
+            <li class="menu-option">Spawn Pedra</li>
+            <li class="menu-option">Spawn Arbusto</li>
+            <li class="menu-option">Spawn Parede1</li>
+            <li class="menu-option">Spawn Parede2</li>
+        </ul>
+    </div>
+
     <header class="hud">
         <p class="lifetext">Life</p>
         <img src="https://cdn140.picsart.com/233951046063212.png?r1024x1024" class="life">
         <img src="https://cdn140.picsart.com/233951046063212.png?r1024x1024" class="life">
         <img src="https://cdn140.picsart.com/233951046063212.png?r1024x1024" class="life">
-        <p class="timer">00:00</p>
     </header>
     <header class="espacamento"></header>
 
@@ -74,9 +117,21 @@
 
     <script>
         const spriteGrama = "https://github.com/wykke/Bomberman/blob/master/servidor/componentes/client/assets/sprites/mapa/grama.jpg?raw=true"
+        const spriteArbusto = "https://github.com/wykke/Bomberman/blob/master/servidor/componentes/client/assets/sprites/mapa/arbusto.png?raw=true"
+        const spritePedra = "https://github.com/wykke/Bomberman/blob/master/servidor/componentes/client/assets/sprites/mapa/pedra.png?raw=true"
+        const spriteParede1 = "https://github.com/wykke/Bomberman/blob/master/servidor/componentes/client/assets/sprites/mapa/parede1.png?raw=true"
+        const spriteParede2 = "https://github.com/wykke/Bomberman/blob/master/servidor/componentes/client/assets/sprites/mapa/parede2.png?raw=true"
 
         createMap()
-
+        spawn(spriteArbusto, 1, 1)
+        spawn(spritePedra, 2, 2)
+        spawn(spriteParede1, 2, 1)
+        spawn(spriteParede2, 3, 1)
+        
+        function remove(){
+            if(menuTarget.querySelector(".objeto"))
+                menuTarget.removeChild(menuTarget.querySelector(".objeto"))
+        }
         function createMap(){
             for(let y=0;y<50;y++)
                 for(let x=0;x<50;x++){
@@ -91,6 +146,44 @@
                     document.querySelector(".mapa").appendChild(dom)
                 }  
         }
+        function spawn(sprite, x, y){
+            const tile = document.querySelector(`[x="${x}"][y="${y}"]`)
+            const spritedom = document.createElement("img")
+            spritedom.classList.add("objeto")
+            spritedom.src = sprite
+            tile.appendChild(spritedom)
+        }
+
+        // menu
+        const menu = document.querySelector(".menu");
+        let menuVisible = false;
+        let menuTarget = undefined
+
+        const toggleMenu = command => {
+          menu.style.display = command === "show" ? "block" : "none";
+          menuVisible = !menuVisible;
+        };
+
+        const setPosition = ({ top, left }) => {
+          menu.style.left = `${left}px`;
+          menu.style.top = `${top}px`;
+          toggleMenu("show");
+        };
+
+        window.addEventListener("click", e => {
+          if(menuVisible)toggleMenu("hide");
+        });
+
+        window.addEventListener("contextmenu", e => {
+          e.preventDefault();
+          const origin = {
+            left: e.pageX,
+            top: e.pageY
+          };
+          menuTarget = e.target
+          setPosition(origin);
+          return false;
+        });
     </script>
 </body>
 </html>
