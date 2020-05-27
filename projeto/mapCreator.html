@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            overflow: hidden;
+            margin: 0px;
+        }
+        .chao{
+            background-color: lightgreen;
+            width: 10vh;
+            height: 10vh;
+            border: 0px;
+            border-right: 1px;
+            border-bottom: 1px;
+            border-style: solid;
+        }
+        .hud{
+            display: flex;
+            position: fixed;
+            height: 30px;
+            width: 100%;
+            background-color: cadetblue;
+            border: 0px;
+            border-bottom: 3px;
+            border-style: solid;
+        }
+        .hud > p{
+            margin-top: auto;
+            margin-bottom: auto;
+        }
+        .lifetext{
+            margin-left: 5px;
+        }
+        .life{
+            margin-left: 7px;
+            height: 100%;
+        }
+        .timer{
+            margin-left: 35%;
+        }
+        .espacamento{
+            height: 33px;
+        }
+        .mapa{
+            display: grid;
+            grid-template-columns: repeat(50, min-content);
+            column-gap: 0px;
+            row-gap: 0px;
+        }
+        .sprite{
+            display: block;
+            width: 60%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+</head>
+<body>
+    <header class="hud">
+        <p class="lifetext">Life</p>
+        <img src="https://cdn140.picsart.com/233951046063212.png?r1024x1024" class="life">
+        <img src="https://cdn140.picsart.com/233951046063212.png?r1024x1024" class="life">
+        <img src="https://cdn140.picsart.com/233951046063212.png?r1024x1024" class="life">
+        <p class="timer">00:00</p>
+    </header>
+    <header class="espacamento"></header>
+
+    <div class="mapa"></div>
+
+    <script>
+        function createMap(){
+            for(let y=0;y<50;y++)
+                for(let x=0;x<50;x++){
+                    const dom = document.createElement("div")
+                    dom.classList.add("chao")
+                    dom.setAttribute("x",x)
+                    dom.setAttribute("y",y)
+                    dom.innerText = `(${x}, ${y})`
+                    document.querySelector(".mapa").appendChild(dom)
+                }  
+        }
+        function createCharacter(posX, posY){
+            const dom = document.createElement("div")
+            const sprite = document.createElement("img")
+            const pos = document.querySelector(`[x="${posX}"][y="${posY}"]`)
+
+            dom.classList.add("character")
+            sprite.classList.add("sprite")
+            sprite.src = "https://images.emojiterra.com/mozilla/512px/1f534.png"
+
+            dom.appendChild(sprite)
+            pos.appendChild(dom)
+            scroll(dom)
+        }
+        function move(keyCode){
+            const dir = []
+            dir[37] = {x:-1, y: 0}
+            dir[38] = {x:0, y:-1}
+            dir[39] = {x:1, y:0}
+            dir[40] = {x:0, y:1}
+
+            const pos = document.querySelector(`[x="${currentPos.x+dir[keyCode].x}"][y="${currentPos.y+dir[keyCode].y}"]`)
+            if(pos){
+                currentPos.x += dir[keyCode].x
+                currentPos.y += dir[keyCode].y
+                pos.appendChild(document.querySelector(".character"))
+                scroll(pos)
+            }
+        }
+        function scroll(dom){
+            dom.scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'center',
+                inline: 'center'
+            });
+        }
+
+        const currentPos = {x:20, y:20}
+        const timer = document.querySelector(".timer")
+        createMap()
+        createCharacter(currentPos.x, currentPos.y)
+
+        document.onkeydown = function(event){
+            move(event.keyCode)
+        }
+
+        setInterval(()=>{
+            const tempo = timer.textContent.split(":")
+            tempo[0] = Number.parseInt(tempo[0])
+            tempo[1] = Number.parseInt(tempo[1])
+            if(tempo[1]>=60){
+                tempo[1]=0
+                tempo[0]+=1
+            }else{
+                tempo[1]+=1
+            }
+            if(tempo[0]<10) tempo[0] = "0"+tempo[0]
+            if(tempo[1]<10) tempo[1] = "0"+tempo[1]
+            timer.textContent = tempo.join(":")
+        },1000)
+    </script>
+</body>
+</html>
