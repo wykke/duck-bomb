@@ -98,20 +98,13 @@
     <div class="menu">
         <ul class="menu-options">
             <li onClick="remove()" class="menu-option">Remove</li>
-            <li class="menu-option">Spawn Pedra</li>
-            <li class="menu-option">Spawn Arbusto</li>
-            <li class="menu-option">Spawn Parede1</li>
-            <li class="menu-option">Spawn Parede2</li>
+            <li onClick="spawnClick(0)" class="menu-option">Spawn Arbusto</li>
+            <li onClick="spawnClick(1)" class="menu-option">Spawn Pedra</li>
+            <li onClick="spawnClick(2)" class="menu-option">Spawn Parede1</li>
+            <li onClick="spawnClick(3)" class="menu-option">Spawn Parede2</li>
+            <li onClick="save()" class="menu-option">Save</li>
         </ul>
     </div>
-
-    <header class="hud">
-        <p class="lifetext">Life</p>
-        <img src="https://cdn140.picsart.com/233951046063212.png?r1024x1024" class="life">
-        <img src="https://cdn140.picsart.com/233951046063212.png?r1024x1024" class="life">
-        <img src="https://cdn140.picsart.com/233951046063212.png?r1024x1024" class="life">
-    </header>
-    <header class="espacamento"></header>
 
     <div class="mapa"></div>
 
@@ -122,15 +115,33 @@
         const spriteParede1 = "https://github.com/wykke/Bomberman/blob/master/servidor/componentes/client/assets/sprites/mapa/parede1.png?raw=true"
         const spriteParede2 = "https://github.com/wykke/Bomberman/blob/master/servidor/componentes/client/assets/sprites/mapa/parede2.png?raw=true"
 
+        const spriteList = [spriteArbusto, spritePedra, spriteParede1, spriteParede2]
+
         createMap()
-        spawn(spriteArbusto, 1, 1)
-        spawn(spritePedra, 2, 2)
-        spawn(spriteParede1, 2, 1)
-        spawn(spriteParede2, 3, 1)
         
         function remove(){
             if(menuTarget.querySelector(".objeto"))
                 menuTarget.removeChild(menuTarget.querySelector(".objeto"))
+        }
+        function save(){
+            let retorno = {}
+            for(let x=0;x<50;x++){
+                for(let y=0;y<50;y++){
+                    const dom = document.querySelector(`[x="${x}"][y="${y}"] .objeto`)
+                    if(dom)
+                        retorno[`(${x},${y})`] = dom.getAttribute("id")
+                }
+            }
+            download("save.txt",JSON.stringify(retorno))
+        }
+        function download(filename, text) {
+            var element = document.createElement('a');
+            element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+            element.setAttribute('download', filename);
+            element.style.display = 'none';
+            document.body.appendChild(element);
+            element.click();
+            document.body.removeChild(element);
         }
         function createMap(){
             for(let y=0;y<50;y++)
@@ -146,12 +157,19 @@
                     document.querySelector(".mapa").appendChild(dom)
                 }  
         }
-        function spawn(sprite, x, y){
+        function spawn(spriteId, x, y){
             const tile = document.querySelector(`[x="${x}"][y="${y}"]`)
             const spritedom = document.createElement("img")
             spritedom.classList.add("objeto")
-            spritedom.src = sprite
+            spritedom.src = spriteList[spriteId]
             tile.appendChild(spritedom)
+        }
+        function spawnClick(spriteId){
+            const spritedom = document.createElement("img")
+            spritedom.classList.add("objeto")
+            spritedom.setAttribute('id', spriteId)
+            spritedom.src = spriteList[spriteId]
+            menuTarget.appendChild(spritedom)
         }
 
         // menu
