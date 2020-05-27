@@ -103,6 +103,7 @@
             <li onClick="spawnClick(2)" class="menu-option">Spawn Parede1</li>
             <li onClick="spawnClick(3)" class="menu-option">Spawn Parede2</li>
             <li onClick="save()" class="menu-option">Save</li>
+            <li onClick="load()" class="menu-option">Load</li>
         </ul>
     </div>
 
@@ -129,10 +130,20 @@
                 for(let y=0;y<50;y++){
                     const dom = document.querySelector(`[x="${x}"][y="${y}"] .objeto`)
                     if(dom)
-                        retorno[`(${x},${y})`] = dom.getAttribute("id")
+                        retorno[`${x},${y}`] = dom.getAttribute("id")
                 }
             }
             download("save.txt",JSON.stringify(retorno))
+        }
+        function load(){
+            uploadText().then(text => {
+                const save = JSON.parse(text)
+                for(elem in save){
+                    const coord = elem.split(",")
+                    const dom = document.querySelector(`[x="${coord[0]}"][y="${coord[1]}"]`)
+                    spawn(save[elem], coord[0], coord[1])
+                }
+            })
         }
         function download(filename, text) {
             var element = document.createElement('a');
@@ -142,6 +153,32 @@
             document.body.appendChild(element);
             element.click();
             document.body.removeChild(element);
+        }
+        function uploadText() {
+            return new Promise((resolve) => {
+                // create file input
+                const uploader = document.createElement('input')
+                uploader.type = 'file'
+                uploader.style.display = 'none'
+            
+                // listen for files
+                uploader.addEventListener('change', () => {
+                    const files = uploader.files
+                
+                    if (files.length) {
+                        const reader = new FileReader()
+                        reader.addEventListener('load', () => {
+                            uploader.parentNode.removeChild(uploader)
+                            resolve(reader.result)
+                        })
+                        reader.readAsText(files[0])
+                    }
+                })
+            
+                // trigger input
+                document.body.appendChild(uploader)
+                uploader.click()
+            })
         }
         function createMap(){
             for(let y=0;y<50;y++)
@@ -161,6 +198,7 @@
             const tile = document.querySelector(`[x="${x}"][y="${y}"]`)
             const spritedom = document.createElement("img")
             spritedom.classList.add("objeto")
+            spritedom.setAttribute('id', spriteId)
             spritedom.src = spriteList[spriteId]
             tile.appendChild(spritedom)
         }
