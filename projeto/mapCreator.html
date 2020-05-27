@@ -12,10 +12,12 @@
             background-color: lightgreen;
             width: 10vh;
             height: 10vh;
-            border: 0px;
-            border-right: 1px;
-            border-bottom: 1px;
-            border-style: solid;
+            border-right: solid 1px;
+            border-bottom: solid 1px;
+        }
+        .chao > img{
+            width: 100%;
+            height: 100%;
         }
         .hud{
             display: flex;
@@ -71,15 +73,20 @@
     <div class="mapa"></div>
 
     <script>
+        const spriteGrama = "https://github.com/wykke/Bomberman/blob/master/servidor/componentes/client/assets/sprites/mapa/grama.jpg?raw=true"
+
         createMap()
 
         function createMap(){
             for(let y=0;y<50;y++)
                 for(let x=0;x<50;x++){
                     const dom = document.createElement("div")
+                    const sprite = document.createElement("img")
                     dom.classList.add("chao")
                     dom.setAttribute("x",x)
                     dom.setAttribute("y",y)
+                    sprite.src = spriteGrama
+                    dom.appendChild(sprite)
                     //dom.innerText = `(${x}, ${y})`
                     document.querySelector(".mapa").appendChild(dom)
                 }  
