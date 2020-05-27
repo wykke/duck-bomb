@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            margin: 0px;
+        }
+        img{
+            pointer-events: none;
+        }
+        .chao{
+            position: relative;
+            background-color: lightgreen;
+            width: 10vh;
+            height: 10vh;
+            border-right: solid 1px;
+            border-bottom: solid 1px;
+        }
+        .chao > img{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            left: 0px;
+            top: 0px;
+            z-index: 1;
+        }
+        .hud{
+            display: flex;
+            position: fixed;
+            height: 30px;
+            width: 100%;
+            background-color: cadetblue;
+            border: 0px;
+            border-bottom: 3px;
+            border-style: solid;
+        }
+        .hud > p{
+            margin-top: auto;
+            margin-bottom: auto;
+        }
+        .lifetext{
+            margin-left: 5px;
+        }
+        .life{
+            margin-left: 7px;
+            height: 100%;
+        }
+        .espacamento{
+            height: 33px;
+        }
+        .mapa{
+            display: grid;
+            grid-template-columns: repeat(50, min-content);
+            column-gap: 0px;
+            row-gap: 0px;
+        }
+        .sprite{
+            display: block;
+            width: 60%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .objeto{
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+        }
+        .menu {
+            width: 120px;
+            background-color: white;
+            box-shadow: 0 4px 5px 3px rgba(0, 0, 0, 0.2);
+            position: absolute;
+            display: none;
+            z-index: 2;
+        }
+        .menu-options {
+            list-style: none;
+            padding: 10px 0;
+        }
+        .menu-option {
+            font-weight: 500;
+            font-size: 14px;
+            padding: 10px 40px 10px 20px;
+            cursor: pointer;
+        }
+        .menu-option:hover {
+            background: rgba(0, 0, 0, 0.2);
+        }          
+    </style>
+</head>
+<body>
+    <div class="menu">
+        <ul class="menu-options">
+            <li onClick="remove()" class="menu-option">Remove</li>
+            <li onClick="spawnClick(0)" class="menu-option">Spawn Arbusto</li>
+            <li onClick="spawnClick(1)" class="menu-option">Spawn Pedra</li>
+            <li onClick="spawnClick(2)" class="menu-option">Spawn Parede1</li>
+            <li onClick="spawnClick(3)" class="menu-option">Spawn Parede2</li>
+            <li onClick="save()" class="menu-option">Save</li>
+            <li onClick="load()" class="menu-option">Load</li>
+        </ul>
+    </div>
+
+    <div class="mapa"></div>
+
+    <script>
+        const spriteGrama = "https://github.com/wykke/Bomberman/blob/master/servidor/componentes/client/assets/sprites/mapa/grama.jpg?raw=true"
+        const spriteArbusto = "https://github.com/wykke/Bomberman/blob/master/servidor/componentes/client/assets/sprites/mapa/arbusto.png?raw=true"
+        const spritePedra = "https://github.com/wykke/Bomberman/blob/master/servidor/componentes/client/assets/sprites/mapa/pedra.png?raw=true"
+        const spriteParede1 = "https://github.com/wykke/Bomberman/blob/master/servidor/componentes/client/assets/sprites/mapa/parede1.png?raw=true"
+        const spriteParede2 = "https://github.com/wykke/Bomberman/blob/master/servidor/componentes/client/assets/sprites/mapa/parede2.png?raw=true"
+
+        const spriteList = [spriteArbusto, spritePedra, spriteParede1, spriteParede2]
+
+        createMap()
+        
+        function remove(){
+            if(menuTarget.querySelector(".objeto"))
+                menuTarget.removeChild(menuTarget.querySelector(".objeto"))
+        }
+        function save(){
+            let retorno = {}
+            for(let x=0;x<50;x++){
+                for(let y=0;y<50;y++){
+                    const dom = document.querySelector(`[x="${x}"][y="${y}"] .objeto`)
+                    if(dom)
+                        retorno[`${x},${y}`] = dom.getAttribute("id")
+                }
+            }
+            download("save.txt",JSON.stringify(retorno))
+        }
+        function load(){
+            uploadText().then(text => {
+                const save = JSON.parse(text)
+                for(elem in save){
+                    const coord = elem.split(",")
+                    const dom = document.querySelector(`[x="${coord[0]}"][y="${coord[1]}"]`)
+                    spawn(save[elem], coord[0], coord[1])
+                }
+            })
+        }
+        function download(filename, text) {
+            var element = document.createElement('a');
+            element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+            element.setAttribute('download', filename);
+            element.style.display = 'none';
+            document.body.appendChild(element);
+            element.click();
+            document.body.removeChild(element);
+        }
+        function uploadText() {
+            return new Promise((resolve) => {
+                // create file input
+                const uploader = document.createElement('input')
+                uploader.type = 'file'
+                uploader.style.display = 'none'
+            
+                // listen for files
+                uploader.addEventListener('change', () => {
+                    const files = uploader.files
+                
+                    if (files.length) {
+                        const reader = new FileReader()
+                        reader.addEventListener('load', () => {
+                            uploader.parentNode.removeChild(uploader)
+                            resolve(reader.result)
+                        })
+                        reader.readAsText(files[0])
+                    }
+                })
+            
+                // trigger input
+                document.body.appendChild(uploader)
+                uploader.click()
+            })
+        }
+        function createMap(){
+            for(let y=0;y<50;y++)
+                for(let x=0;x<50;x++){
+                    const dom = document.createElement("div")
+                    const sprite = document.createElement("img")
+                    dom.classList.add("chao")
+                    dom.setAttribute("x",x)
+                    dom.setAttribute("y",y)
+                    sprite.src = spriteGrama
+                    dom.appendChild(sprite)
+                    //dom.innerText = `(${x}, ${y})`
+                    document.querySelector(".mapa").appendChild(dom)
+                }  
+        }
+        function spawn(spriteId, x, y){
+            const tile = document.querySelector(`[x="${x}"][y="${y}"]`)
+            const spritedom = document.createElement("img")
+            spritedom.classList.add("objeto")
+            spritedom.setAttribute('id', spriteId)
+            spritedom.src = spriteList[spriteId]
+            tile.appendChild(spritedom)
+        }
+        function spawnClick(spriteId){
+            const spritedom = document.createElement("img")
+            spritedom.classList.add("objeto")
+            spritedom.setAttribute('id', spriteId)
+            spritedom.src = spriteList[spriteId]
+            menuTarget.appendChild(spritedom)
+        }
+
+        // menu
+        const menu = document.querySelector(".menu");
+        let menuVisible = false;
+        let menuTarget = undefined
+
+        const toggleMenu = command => {
+          menu.style.display = command === "show" ? "block" : "none";
+          menuVisible = !menuVisible;
+        };
+
+        const setPosition = ({ top, left }) => {
+          menu.style.left = `${left}px`;
+          menu.style.top = `${top}px`;
+          toggleMenu("show");
+        };
+
+        window.addEventListener("click", e => {
+          if(menuVisible)toggleMenu("hide");
+        });
+
+        window.addEventListener("contextmenu", e => {
+          e.preventDefault();
+          const origin = {
+            left: e.pageX,
+            top: e.pageY
+          };
+          menuTarget = e.target
+          setPosition(origin);
+          return false;
+        });
+    </script>
+</body>
+</html>
