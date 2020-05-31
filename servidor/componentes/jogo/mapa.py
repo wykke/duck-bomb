@@ -11,7 +11,8 @@ from random import randint
 TAM = 50
 
 class Mapa():
-    
+
+    contador_objetos = 0    
 
     def __init__(self):
         global TAM
@@ -22,15 +23,16 @@ class Mapa():
             for j in range(TAM):
                 #Insatanciando as bordas do mapa
                 if(i==0 or j ==0 or i==TAM-1 or j == TAM-1):
-                    self.tiles[i][j]= Pedra(i,j,False)
+                    self.tiles[i][j]= Pedra(i,j,False,Mapa.contador_objetos)
+                    Mapa.contador_objetos += 1 
 
-        self.tiles[10][10]=Arbusto(10,10,True)
-        self.tiles[20][10]=Arbusto(20,10,True)
-        self.tiles[20][20]=Arbusto(20,20,True)
-        self.tiles[10][30]=Arbusto(10,30,True)
-        self.tiles[30][20]=Arbusto(30,20,True)
-        self.tiles[40][10]=Arbusto(40,10,True)
-        self.tiles[10][40]=Arbusto(10,40,True)
+        self.tiles[10][10]=Arbusto(10,10,True,Mapa.contador_objetos)
+        self.tiles[20][10]=Arbusto(20,10,True,Mapa.contador_objetos)
+        self.tiles[20][20]=Arbusto(20,20,True,Mapa.contador_objetos)
+        self.tiles[10][30]=Arbusto(10,30,True,Mapa.contador_objetos)
+        self.tiles[30][20]=Arbusto(30,20,True,Mapa.contador_objetos)
+        self.tiles[40][10]=Arbusto(40,10,True,Mapa.contador_objetos)
+        self.tiles[10][40]=Arbusto(10,40,True,Mapa.contador_objetos)
 
     def verifica(self, X, Y):
         global TAM

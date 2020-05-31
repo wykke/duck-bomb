@@ -9,7 +9,8 @@ from abc import ABC, abstractmethod
 
 class ObjetosEstaticos(ABC):
 
-    def __init__(self, tiles_x, tiles_y, destructible):
+    def __init__(self, tiles_x, tiles_y, destructible, oid):
         self.tiles_x = tiles_x
         self.tiles_y = tiles_y
         self.destructible = destructible
+        self.oid = oid

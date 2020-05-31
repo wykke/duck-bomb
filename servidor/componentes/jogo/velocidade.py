@@ -10,4 +10,4 @@ from componentes.jogo.powerups import PowerUp
 class Velocidade(PowerUp):
 
     def poder(self, personagem):
-        personagem.velocidade += 0.3
+        personagem.velocidade += 1
