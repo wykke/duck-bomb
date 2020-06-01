@@ -1,11 +1,13 @@
 import Game from "../game/game.js"
 import Input from "../input/input.js"
+import PowerUp from "../game/powerup/powerUp.js"
 
 export default class Socket{
     constructor(){
         this.socket = io()
         this.game = new Game(this)
         this.input = new Input(this)
+        this.powerUp = new PowerUp()
 
         setupSockets(this)
     }
@@ -33,6 +35,10 @@ function setupSockets(s){
             s.game.tipoSpawn[tipo](id, posX, posY, playerName, false)
         else
             s.game.spawnObject(tipo, id, posX, posY)
+    })
+
+    socket.on('powerUp', ({tipo, qtd}) => {
+        this.powerUp.setPowerQtd(tipo, qtd)
     })
 
     socket.on('remove', ({id}) => {
