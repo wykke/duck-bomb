@@ -1,11 +1,13 @@
 import Game from "../game/game.js"
 import Input from "../input/input.js"
+import PowerUp from "../game/powerup/powerUp.js"
 
 export default class Socket{
     constructor(){
         this.socket = io()
         this.game = new Game(this)
         this.input = new Input(this)
+        this.powerUp = new PowerUp()
 
         setupSockets(this)
     }
