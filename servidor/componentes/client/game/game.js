@@ -4,6 +4,8 @@ import Mapa from "./mapa.js"
 
 import Arbusto from "./estaticos/arbusto.js"
 import Pedra from "./estaticos/pedra.js"
+import Parede1 from "./estaticos/parede1.js"
+import Parede2 from "./estaticos/parede2.js"
 
 import Arremesso from "./powerup/arremesso.js"
 import MultiBomba from "./powerup/multiBomba.js"
@@ -53,6 +55,8 @@ export default class Game{
         const tipos = {
             "arbusto": () => new Arbusto(id, posicaoX, posicaoY),
             "pedra": () => new Pedra(id, posicaoX, posicaoY),
+            "parede1": () => new Parede1(id, posicaoX, posicaoY),
+            "parede2": () => new Parede2(id, posicaoX, posicaoY),
 
             "arremesso": () => new Arremesso(id, posicaoX, posicaoY),
             "multibomba": () => new MultiBomba(id, posicaoX, posicaoY),
