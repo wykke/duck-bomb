@@ -16,6 +16,8 @@ export default {
     chao: "mapa/grama.jpg",
     arbusto: "mapa/arbusto.png",
     pedra: "mapa/pedra.png",
+    parede1:"mapa/parede1.png",
+    parede2:"mapa/parede2.png",
 
     arremesso: "powerup/arremesso.png",
     multiBomba: "powerup/multiBomba.png",
