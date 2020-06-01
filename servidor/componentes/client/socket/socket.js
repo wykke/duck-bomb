@@ -37,6 +37,10 @@ function setupSockets(s){
             s.game.spawnObject(tipo, id, posX, posY)
     })
 
+    socket.on('powerUp', ({tipo, qtd}) => {
+        this.powerUp.setPowerQtd(tipo, qtd)
+    })
+
     socket.on('remove', ({id}) => {
         console.log("remove", id)
         s.game.removerObjeto(id)
