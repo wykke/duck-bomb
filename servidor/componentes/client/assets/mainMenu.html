@@ -7,7 +7,6 @@
     column-gap: 0px;
     row-gap: 0px;
     filter: blur(8px);
-    
 }
 .splashVP{
     display: flex;
@@ -30,11 +29,45 @@
     box-shadow: 4px 4px 20px 3px black;
     background-color: cadetblue;
 }
+.splashMenu > p{
+    font-family: gamingRetro;
+    text-align: center;
+}
+.splashTitulo{
+    font-size: x-large;
+}
+.splashVersion{
+    font-size: x-small;
+}
+.splashInput{
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 5%;
+    /* background-color: transparent; */
+    border: solid 3px black;
+    border-radius: 10px;
+    text-align: center;
+}
+.splashButton{
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20%;
+    width: 120px;
+    height: 120px;
+    background-color: lightgreen;
+    border: none;
+    box-shadow: 4px 4px 20px 0px black;
+}
 </style>
 
 <div class="splashVP">
     <div class="splashMenu">
-        test
+        <p class="splashTitulo">Duck Bomb</p>
+        <p class="splashNome">Dijite Seu Nome</p>
+        <input id="nome" class="splashInput" type="text" value="">
+        <button id="btnStart" class="splashButton">start</button>
+        <p class="splashVersion">v0.3</p>
     </div>
 </div>
 <div class="splashMap"></div>
@@ -85,7 +118,7 @@
                 clearInterval(timer)
 
             p1.mover(p1.posicaoX+p1IA[p1idx].x, p1.posicaoY+p1IA[p1idx++].y)
-            
+
             if(!p1IA[p1idx])
                 p1idx = 0
         },3000)

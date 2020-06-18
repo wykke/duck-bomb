@@ -6,6 +6,10 @@ body{
 img{
     pointer-events: none;
 }
+@font-face {
+    font-family: gamingRetro;
+    src: url(./assets/fonts/RetroGaming.ttf);
+}
 
 /* SPLASH */
 .splash{
