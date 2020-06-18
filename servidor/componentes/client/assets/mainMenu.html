@@ -41,6 +41,7 @@
 
 <script type="module">
     import sprites from "./assets/sprites.js"
+    import Personagem from "./game/personagem.js"
 
     const spriteList = [sprites.arbusto, sprites.pedra, 
         sprites.parede1, sprites.parede2]
@@ -56,6 +57,12 @@
         const splash = document.querySelector(".splashMap")
         splash.style.gridTemplateColumns = `repeat(${50}, min-content)`
 
+        const p1 = new Personagem(-1,"DuckMaster",9,10,false)
+        const p2 = new Personagem(-2,"xX_Duck_Xx",22,9,false)
+
+        const p1IA = [{x:1,y:0},{x:0,y:1},{x:1,y:0},{x:-1,y:-1},{x:-1,y:0}]
+        let p1idx = 0
+
         for(let y=0; y<50; y++){
             for(let x=0; x<50; x++){
                 const dom = document.createElement("div")
@@ -68,6 +75,20 @@
                 splash.appendChild(dom)
             }
         }
+
+        document.querySelector(`[x="9"][y="10"]`).appendChild(p1.dom)
+        document.querySelector(`[x="22"][y="9"]`).appendChild(p2.dom)
+
+
+        const timer = setInterval(()=>{
+            if(!document.querySelector(".splash"))
+                clearInterval(timer)
+
+            p1.mover(p1.posicaoX+p1IA[p1idx].x, p1.posicaoY+p1IA[p1idx++].y)
+            
+            if(!p1IA[p1idx])
+                p1idx = 0
+        },3000)
     }
     function load(save){
         for(let elem in save){
