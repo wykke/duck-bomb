@@ -1,9 +1,51 @@
+<style>
+.splashMap{
+    display: grid;
+    position: absolute;
+    top: -50vh;
+    left: -50vh;
+    column-gap: 0px;
+    row-gap: 0px;
+    /* filter: blur(5px); */
+}
+.splashVP{
+    display: flex;
+    position: absolute;
+    top: 0px;
+    justify-content: center;
+    height: calc(100vh - 30px);
+    width: 100vw;
+    z-index: 10;
+}
+.splashMenu{
+    display: flex;
+    width: 100px;
+    height: 100px;
+    margin-top: auto;
+    margin-bottom: auto;
+    background-color: yellow;
+}
+</style>
+
+<div class="splashVP">
+    <div class="splashMenu">
+        test
+    </div>
+</div>
 <div class="splashMap"></div>
 
 <script type="module">
     import sprites from "./assets/sprites.js"
 
-    createMainScreen()
+    const spriteList = [sprites.arbusto, sprites.pedra, 
+        sprites.parede1, sprites.parede2]
+
+    fetch('./assets/map.json')
+        .then(res => res.json())
+        .then(save => {
+            createMainScreen()
+            load(save)
+        })
 
     function createMainScreen(){
         const splash = document.querySelector(".splashMap")
@@ -21,5 +63,20 @@
                 splash.appendChild(dom)
             }
         }
+    }
+    function load(save){
+        for(let elem in save){
+            const coord = elem.split(",")
+            //const dom = document.querySelector(`[x="${coord[0]}"][y="${coord[1]}"]`)
+            spawn(save[elem], coord[0], coord[1])
+        } 
+    }
+    function spawn(spriteId, x, y){
+        const tile = document.querySelector(`[x="${x}"][y="${y}"]`)
+        const spritedom = document.createElement("img")
+        spritedom.classList.add("objeto")
+        spritedom.setAttribute('id', spriteId)
+        spritedom.src = "./assets/"+ sprites.folder + spriteList[spriteId]
+        tile.appendChild(spritedom)
     }
 </script>

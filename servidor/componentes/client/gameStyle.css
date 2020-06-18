@@ -9,15 +9,8 @@ img{
 
 /* SPLASH */
 .splash{
-    display: flex;
-    justify-content: center;
-    height: 100vh;
+    position: relative;
     z-index: -1;
-}
-.splashMap{
-    display: grid;
-    column-gap: 0px;
-    row-gap: 0px;
 }
 .gameOverSplash{
     position: fixed;
