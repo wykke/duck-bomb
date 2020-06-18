@@ -21,6 +21,7 @@ export default class Game{
         this.socket = socket
         this.playerPrincipal
         this.audioBackground = audio.folder + audio.background
+        this.audioGameOver = audio.folder + audio.gameOver
         this.sound = document.createElement("audio")
         this.startAudio()
         
@@ -61,6 +62,9 @@ export default class Game{
     gameOver(){
         this.estadoAtual = this.estados.gameOver
         $(".gameOverSplash > div").load("../assets/gameOver.html")
+        let gameOverSound = document.createElement("audio")
+        gameOverSound.src = this.audioGameOver
+        gameOverSound.play()
     }
     spawnObject(tipo, id, posicaoX, posicaoY){
         const tipos = {

@@ -1,4 +1,5 @@
 import sprites from "../../assets/sprites.js"
+import audio from "../../assets/sons.js"
 
 export default class PowerUp{
     constructor(){
@@ -16,7 +17,14 @@ export default class PowerUp{
         }
         this.hud = document.querySelector(".powerUpList")
 
+        this.audioPowerUp = "../" + audio.folder + audio.powerUp
+        this.sound = document.createElement("audio")
+        this.setSound()
+
         this.createDom(Object.keys(this.powerQtd))
+    }
+    setSound(){
+        document.getElementById("canvas").appendChild(this.sound)
     }
     setPowerQtd(tipo, qtd){
         this.powerQtd[tipo] = qtd
@@ -33,7 +41,9 @@ export default class PowerUp{
             sprite.src = this.spritesList[tipo]
             
             target.appendChild(sprite)
-        } 
+        }
+
+        this.sound.play()
     }
     createDom(tipos){
         for(let tipo of tipos){
