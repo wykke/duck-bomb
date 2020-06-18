@@ -40,7 +40,6 @@ export default class Game{
     }
     newGame(){
         this.canvas.removeChild(this.canvas.querySelector(".splash"))
-        this.canvas.querySelector(".startGame").remove()
         this.canvas.style.backgroundColor = "white"
         this.estadoAtual = this.estados.jogando
         this.mapa.openMap()
