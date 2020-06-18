@@ -1,6 +1,9 @@
 import Socket from "./socket/socket.js"
+import sprites from "./assets/sprites.js"
 
 const socket = new Socket()
+
+createMainScreen()
 
 function startGame(){
     setTimeout(()=>{
@@ -36,3 +39,20 @@ document.addEventListener('mousedown', function (event) {
     }
 }, false);
 
+function createMainScreen(){
+    const splash = document.querySelector(".splashMap")
+    splash.style.gridTemplateColumns = `repeat(${50}, min-content)`
+
+    for(let y=0; y<50; y++){
+        for(let x=0; x<50; x++){
+            const dom = document.createElement("div")
+            dom.classList.add("chao")
+            dom.setAttribute("x",x)
+            dom.setAttribute("y",y)
+            let sprite = document.createElement("img")
+            sprite.src = "./assets/" + sprites.folder + sprites.chao
+            dom.appendChild(sprite)
+            splash.appendChild(dom)
+        }
+    }
+}

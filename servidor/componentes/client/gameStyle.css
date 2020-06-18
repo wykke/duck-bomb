@@ -12,17 +12,12 @@ img{
     display: flex;
     justify-content: center;
     height: 100vh;
+    z-index: -1;
 }
-.splash > div{
-    margin-top: auto;
-    margin-bottom: auto;
-}
-.splash > div > img{
-    height: 50vh;
-}
-.splash > div > p{
-    text-align: center;
-    text-decoration: underline;
+.splashMap{
+    display: grid;
+    column-gap: 0px;
+    row-gap: 0px;
 }
 .gameOverSplash{
     position: fixed;
@@ -44,6 +39,7 @@ img{
     border: 0px;
     border-bottom: 3px;
     border-style: solid;
+    z-index: 10;
 }
 .hud > p{
     margin-top: auto;
