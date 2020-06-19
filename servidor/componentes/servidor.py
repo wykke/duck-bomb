@@ -36,7 +36,7 @@ class Servidor():
                 if(isinstance(ThreadUpdate.mapa.tiles[i][j], Pedra)):
                     Servidor.sio.emit('spawn', {'id':ThreadUpdate.mapa.tiles[i][j].oid, 'posX':i, 'posY':j,'tipo':"pedra"}, sid)
                 elif(isinstance(ThreadUpdate.mapa.tiles[i][j], Arbusto)):
-                    Servidor.sio.emit('spawn', {'id':ThreadUpdate.mapa.tiles[i][j].oid, 'posX':i, 'posY':j+1,'tipo':"arbusto"}, sid)
+                    Servidor.sio.emit('spawn', {'id':ThreadUpdate.mapa.tiles[i][j].oid, 'posX':i, 'posY':j,'tipo':"arbusto"}, sid)
 
         for p in ThreadUpdate.personagens.values():
             Servidor.sio.emit('spawn', {'id':p.sid, 'posX':p.posicao_x, 'posY':p.posicao_y,'tipo':"personagem", 'playerName':p.nome}, sid)
