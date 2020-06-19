@@ -13,6 +13,7 @@ import SuperBomba from "./powerup/superBomba.js"
 import Velocidade from "./powerup/velocidade.js"
 
 import audio from "../assets/sons.js"
+import config from "./configuration.js"
 
 export default class Game{
     constructor(socket){
@@ -23,6 +24,9 @@ export default class Game{
         this.audioBackground = audio.folder + audio.background
         this.audioGameOver = audio.folder + audio.gameOver
         this.sound = document.createElement("audio")
+        this.sound.classList.add("musica")
+        this.backgroundVolume = 0.2
+        this.gameOverVolume = 1
         this.startAudio()
         
         this.estados = {
@@ -46,8 +50,9 @@ export default class Game{
     }
     startAudio(){
         this.sound.src = this.audioBackground
-        this.sound.volume = 0.2
+        this.sound.volume = this.backgroundVolume * config().musicaVolume
         document.getElementById("canvas").appendChild(this.sound)
+
         this.sound.play()
     }
     removerObjeto(id){
@@ -62,7 +67,10 @@ export default class Game{
         this.estadoAtual = this.estados.gameOver
         $(".gameOverSplash > div").load("../assets/gameOver.html")
         let gameOverSound = document.createElement("audio")
+        gameOverSound.classList.add("efeitos")
         gameOverSound.src = this.audioGameOver
+        gameOverSound.volume = this.gameOverVolume * config().efeitosVolume
+
         gameOverSound.play()
     }
     spawnObject(tipo, id, posicaoX, posicaoY){

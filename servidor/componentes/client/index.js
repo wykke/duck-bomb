@@ -4,12 +4,34 @@ const socket = new Socket()
 
 $(".splash").load("./assets/mainMenu.html", ()=>{
     document.getElementById("btnStart").onclick = startGame
+    document.getElementById("config").onclick = configuration
+    document.getElementById("musicaslider").onchange = volumeChangeMusica
+    document.getElementById("efeitosslider").onchange = volumeChangeEfeitos
 })
 
 function startGame(){
     setTimeout(()=>{
         socket.spawn(document.getElementById("nome").value)
     },200)
+}
+
+function configuration(){
+    if(document.getElementById("configsplash").style.visibility == "visible"){
+        document.getElementById("configsplash").style.visibility = "hidden"
+    }else{
+        document.getElementById("configsplash").style.visibility = "visible"
+    }
+}
+
+function volumeChangeMusica(){
+    document.querySelector(".musica").volume = 
+        socket.game.backgroundVolume * document.getElementById("musicaslider").value/100
+}
+
+function volumeChangeEfeitos(){
+    document.querySelectorAll(".efeitos").forEach(audio => {
+        audio.volume = document.getElementById("efeitosslider").value/100
+    })
 }
 
 document.onkeyup = function(event){

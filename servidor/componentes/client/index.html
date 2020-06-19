@@ -9,14 +9,22 @@
 </head>
 <body id="canvas">
     <header class="hud">
+        <button id="config">
+            <img class="configimg" src="./assets/sprites/hud/config.png">
+        </button>
         <p>Powers:</p>
         <div class="powerUpList"></div>
     </header>
     <header class="espacamento"></header>
+    <div id="configsplash">
+        <p>Musica:</p>
+        <input type="range" min="0" max="100" value="50" class="configslider" id="musicaslider">
+        <p>Efeitos:</p>
+        <input type="range" min="1" max="100" value="50" class="configslider" id="efeitosslider">
+    </div>
+
     <div class="gameOverSplash"><div></div></div>
-
     <div class="splash"></div>
-
     <div id="mapa"></div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>

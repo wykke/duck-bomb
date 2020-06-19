@@ -1,5 +1,6 @@
 import sprites from "../../assets/sprites.js"
 import audio from "../../assets/sons.js"
+import config from "../configuration.js"
 
 export default class PowerUp{
     constructor(){
@@ -19,7 +20,9 @@ export default class PowerUp{
 
         this.audioPowerUp = "../" + audio.folder + audio.powerUp
         this.sound = document.createElement("audio")
+        this.sound.classList.add("efeitos")
         this.setSound()
+        this.volume = 1
 
         this.createDom(Object.keys(this.powerQtd))
     }
@@ -43,6 +46,7 @@ export default class PowerUp{
             
             target.appendChild(sprite)
         }
+        this.sound.volume = this.volume * config().efeitosVolume
 
         this.sound.play()
     }

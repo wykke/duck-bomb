@@ -1,3 +1,6 @@
+*{
+    user-select: none;
+}
 body{
     overflow: hidden;
     margin: 0px;
@@ -43,6 +46,54 @@ img{
     margin-bottom: auto;
     margin-left: 4px;
     font-family: gamingRetro;
+}
+#config{
+    display: flex;
+    height: 100%;
+    margin-left: 5px;
+    margin-right: 5px;
+    border: solid 2px;
+    border-radius: 8px;
+    background-color: lightgreen;
+}
+.configimg{
+    height: 80%;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+#configsplash{
+    visibility: hidden;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 150px;
+    width: 200px;
+    margin-top: auto;
+    margin-bottom: auto;
+    box-shadow: 4px 4px 20px 3px black;
+    background-color: cadetblue;
+    padding: 10px;
+    z-index: 100;
+}
+#configsplash > p{
+    font-family: gamingRetro;
+    text-align: center;
+}
+.configslider{
+    margin-bottom: 10px;
+    -webkit-appearance: none;
+    height: 12px;
+    border: solid 2px;
+    border-radius: 10px;
+}
+.configslider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: lightgreen;
+    cursor: pointer;
+    border: solid 2px;
 }
 .powerUpList{
     display: flex;
