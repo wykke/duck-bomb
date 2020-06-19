@@ -15,15 +15,14 @@ export default class Bomba extends Objeto{
     detonar(tamanho = 2){
         const animationDelay = 300
         const explosionDelay = 1000
-        const raio = Math.floor(tamanho/2)
 
         const image = this.dom.getElementsByTagName("img")[0]
 
         image.src = this.spriteExplosao
         image.style.position = "relative"
-        image.style.width = (tamanho*2-1)+"00%"
-        image.style.left = (-10*raio)+"vh"
-        image.style.top = (-10*raio)+"vh"
+        image.style.width = (tamanho*2)+"00%"
+        image.style.left = (-5*(tamanho*2-1))+"vh"
+        image.style.top = (-5*(tamanho*2-1))+"vh"
         
         this.sound.play()
 
