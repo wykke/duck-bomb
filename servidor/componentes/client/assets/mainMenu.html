@@ -115,8 +115,8 @@
 
         const timer = setInterval(()=>{
             if(!document.querySelector(".splash")){
+                p1.dom.parentElement.removeChild(p1.dom)
                 clearInterval(timer)
-                console.log("terminou")
             }else{
                 p1.mover(p1.posicaoX+p1IA[p1idx].x, p1.posicaoY+p1IA[p1idx++].y)
                 if(!p1IA[p1idx])
