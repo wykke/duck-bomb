@@ -99,6 +99,10 @@ class Servidor():
     
     def remove(self, rid):
         self.sio.emit('remove', {'id':rid}, 'players')
+
+    def emitPoder(self, tipo, qtd, sid):
+        self.sio.emit('powerUp',{'tipo':tipo, 'qtd':qtd}, room=sid)
+        print("poder",tipo,qtd,sid)
     
 
 if __name__ == '__main__':

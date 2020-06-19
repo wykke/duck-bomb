@@ -38,7 +38,7 @@ function setupSockets(s){
     })
 
     socket.on('powerUp', ({tipo, qtd}) => {
-        this.powerUp.setPowerQtd(tipo, qtd)
+        s.powerUp.setPowerQtd(tipo, qtd)
     })
 
     socket.on('remove', ({id}) => {
