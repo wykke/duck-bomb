@@ -6,23 +6,15 @@ body{
 img{
     pointer-events: none;
 }
+@font-face {
+    font-family: gamingRetro;
+    src: url(./assets/fonts/RetroGaming.ttf);
+}
 
 /* SPLASH */
 .splash{
-    display: flex;
-    justify-content: center;
-    height: 100vh;
-}
-.splash > div{
-    margin-top: auto;
-    margin-bottom: auto;
-}
-.splash > div > img{
-    height: 50vh;
-}
-.splash > div > p{
-    text-align: center;
-    text-decoration: underline;
+    position: relative;
+    z-index: -1;
 }
 .gameOverSplash{
     position: fixed;
@@ -44,11 +36,13 @@ img{
     border: 0px;
     border-bottom: 3px;
     border-style: solid;
+    z-index: 10;
 }
 .hud > p{
     margin-top: auto;
     margin-bottom: auto;
     margin-left: 4px;
+    font-family: gamingRetro;
 }
 .powerUpList{
     display: flex;
@@ -65,13 +59,6 @@ img{
 }
 .espacamento{
     height: 33px;
-}
-.startGame{
-    float: right;
-    margin-left: auto;
-    margin-right: 10px;
-    margin-top: auto;
-    margin-bottom: auto;
 }
 
 /* CANVAS */

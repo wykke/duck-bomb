@@ -12,12 +12,18 @@ import MultiBomba from "./powerup/multiBomba.js"
 import SuperBomba from "./powerup/superBomba.js"
 import Velocidade from "./powerup/velocidade.js"
 
+import audio from "../assets/sons.js"
+
 export default class Game{
     constructor(socket){
         this.canvas = document.getElementById("canvas")
         this.mapa = new Mapa(50, 50)
         this.socket = socket
         this.playerPrincipal
+        this.audioBackground = audio.folder + audio.background
+        this.audioGameOver = audio.folder + audio.gameOver
+        this.sound = document.createElement("audio")
+        this.startAudio()
         
         this.estados = {
             offline: 0,
@@ -34,10 +40,15 @@ export default class Game{
     }
     newGame(){
         this.canvas.removeChild(this.canvas.querySelector(".splash"))
-        this.canvas.querySelector(".startGame").remove()
         this.canvas.style.backgroundColor = "white"
         this.estadoAtual = this.estados.jogando
         this.mapa.openMap()
+    }
+    startAudio(){
+        this.sound.src = this.audioBackground
+        this.sound.volume = 0.2
+        document.getElementById("canvas").appendChild(this.sound)
+        this.sound.play()
     }
     removerObjeto(id){
         if(id === this.playerPrincipal.id){
@@ -50,6 +61,9 @@ export default class Game{
     gameOver(){
         this.estadoAtual = this.estados.gameOver
         $(".gameOverSplash > div").load("../assets/gameOver.html")
+        let gameOverSound = document.createElement("audio")
+        gameOverSound.src = this.audioGameOver
+        gameOverSound.play()
     }
     spawnObject(tipo, id, posicaoX, posicaoY){
         const tipos = {

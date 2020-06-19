@@ -2,13 +2,15 @@ import Socket from "./socket/socket.js"
 
 const socket = new Socket()
 
+$(".splash").load("./assets/mainMenu.html", ()=>{
+    document.getElementById("btnStart").onclick = startGame
+})
+
 function startGame(){
     setTimeout(()=>{
         socket.spawn(document.getElementById("nome").value)
     },200)
 }
-
-document.getElementById("btnStart").onclick = startGame
 
 document.onkeyup = function(event){
     if(socket.game.estadoAtual == socket.game.estados.jogando){
@@ -35,4 +37,3 @@ document.addEventListener('mousedown', function (event) {
       event.preventDefault();
     }
 }, false);
-
