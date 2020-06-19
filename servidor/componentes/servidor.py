@@ -36,7 +36,7 @@ class Servidor():
                 if(isinstance(ThreadUpdate.mapa.tiles[i][j], Pedra)):
                     Servidor.sio.emit('spawn', {'id':ThreadUpdate.mapa.tiles[i][j].oid, 'posX':i, 'posY':j,'tipo':"pedra"}, sid)
                 elif(isinstance(ThreadUpdate.mapa.tiles[i][j], Arbusto)):
-                    Servidor.sio.emit('spawn', {'id':ThreadUpdate.mapa.tiles[i][j].oid, 'posX':i, 'posY':j+1,'tipo':"arbusto"}, sid)
+                    Servidor.sio.emit('spawn', {'id':ThreadUpdate.mapa.tiles[i][j].oid, 'posX':i, 'posY':j,'tipo':"arbusto"}, sid)
 
         for p in ThreadUpdate.personagens.values():
             Servidor.sio.emit('spawn', {'id':p.sid, 'posX':p.posicao_x, 'posY':p.posicao_y,'tipo':"personagem", 'playerName':p.nome}, sid)
@@ -57,7 +57,7 @@ class Servidor():
         else:
             return 
         if(x > 0 and y > 0):
-            Servidor.sio.emit('spawn', {'id':Servidor.contador, 'posX':x, 'posY':y,'tipo':"bomba"}, 'players')
+            Servidor.sio.emit('spawn', {'id':Servidor.contador, 'posX':x, 'posY':y,'tipo':"bomba", 'playerName': sid}, 'players')
             Servidor.contador += 1
             if(Servidor.contador > 100):
                 Servidor.contador = 0
@@ -99,6 +99,10 @@ class Servidor():
     
     def remove(self, rid):
         self.sio.emit('remove', {'id':rid}, 'players')
+
+    def emitPoder(self, tipo, qtd, sid):
+        self.sio.emit('powerUp',{'tipo':tipo, 'qtd':qtd}, room=sid)
+        print("poder",tipo,qtd,sid)
     
 
 if __name__ == '__main__':

@@ -20,9 +20,9 @@ export default class Bomba extends Objeto{
 
         image.src = this.spriteExplosao
         image.style.position = "relative"
-        image.style.width = (tamanho*2-1)+"00%"
-        image.style.left = "-10vh"
-        image.style.top = "-10vh"
+        image.style.width = (tamanho*2)+"00%"
+        image.style.left = (-5*(tamanho*2-1))+"vh"
+        image.style.top = (-5*(tamanho*2-1))+"vh"
         
         this.sound.play()
 

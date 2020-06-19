@@ -12,3 +12,4 @@ class MultiBomba(PowerUp):
 
     def poder(self, personagem):
         personagem.count_bomba += 1
+        personagem.servidor.emitPoder("multibomba", personagem.count_bomba-1, personagem.sid)

@@ -10,10 +10,10 @@
 }
 .splashVP{
     display: flex;
-    position: absolute;
-    top: 0px;
+    position: fixed;
+    top: 33px;
     justify-content: center;
-    height: calc(100vh - 30px);
+    height: calc(100vh - 33px);
     width: 100vw;
     z-index: 10;
     background: rgba(255, 255, 255, 0.3);
@@ -64,7 +64,7 @@
 <div class="splashVP">
     <div class="splashMenu">
         <p class="splashTitulo">Duck Bomb</p>
-        <p class="splashNome">Dijite Seu Nome</p>
+        <p class="splashNome">Digite Seu Nome</p>
         <input id="nome" class="splashInput" type="text" value="">
         <button id="btnStart" class="splashButton">start</button>
         <p class="splashVersion">v0.3</p>
