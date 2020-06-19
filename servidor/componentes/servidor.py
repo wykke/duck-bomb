@@ -57,7 +57,7 @@ class Servidor():
         else:
             return 
         if(x > 0 and y > 0):
-            Servidor.sio.emit('spawn', {'id':Servidor.contador, 'posX':x, 'posY':y,'tipo':"bomba"}, 'players')
+            Servidor.sio.emit('spawn', {'id':Servidor.contador, 'posX':x, 'posY':y,'tipo':"bomba", 'playerName': sid}, 'players')
             Servidor.contador += 1
             if(Servidor.contador > 100):
                 Servidor.contador = 0

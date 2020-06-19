@@ -70,6 +70,9 @@ img{
     height: 100%;
     z-index: 2;
 }
+.bomba{
+    width: 100%;
+}
 .bomba > img {
     display: block;
     width: 100%;
@@ -77,8 +80,8 @@ img{
     margin-right: auto;
 }
 .personagem{
-    position: relative;
     top: -3vh;
+    width: 100%;
 }
 .personagem > img {
     display: block;

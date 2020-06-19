@@ -29,7 +29,7 @@ function setupSockets(s){
         if(s.game.estadoAtual === s.game.estados.offline){
             s.game.newGame()
             s.game.playerPrincipal = s.game.tipoSpawn[tipo](id, posX, posY, playerName, true)
-            console.log("seu personagem:",playerName)
+            console.log("seu personagem:",playerName, posX,posY)
             console.log("seu id:",id)
         }else if(s.game.tipoSpawn[tipo]) 
             s.game.tipoSpawn[tipo](id, posX, posY, playerName, false)

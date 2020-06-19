@@ -35,8 +35,8 @@ export default class Game{
         this.tipoSpawn = []
         this.tipoSpawn["personagem"] = (id, posicaoX, posicaoY, playerName, playerPrincipal) => 
             this.spawnPersonagem(id, posicaoX, posicaoY, playerName, playerPrincipal)
-        this.tipoSpawn["bomba"] = (id, posicaoX, posicaoY) => 
-            this.spawnBomba(id, posicaoX, posicaoY)
+        this.tipoSpawn["bomba"] = (id, posicaoX, posicaoY, playerName) => 
+            this.spawnBomba(id, posicaoX, posicaoY, playerName)
     }
     newGame(){
         this.canvas.removeChild(this.canvas.querySelector(".splash"))
@@ -89,9 +89,19 @@ export default class Game{
     moverObjeto(id, posicaoX, posicaoY){
         this.mapa.objetos.get(id).mover(posicaoX, posicaoY)
     }
-    spawnBomba(id, posicaoX, posicaoY){
-        const novaBomba = new Bomba(id, posicaoX, posicaoY)
-        this.mapa.spawnObjeto(novaBomba, posicaoX, posicaoY)
+    spawnBomba(id, posicaoX, posicaoY, playerName){
+        const player = this.mapa.objetos.get(playerName)
+        const novaBomba = new Bomba(id, player.posicaoX, player.posicaoY)
+        const animationDelay = 200
+
+        this.mapa.spawnObjeto(novaBomba, player.posicaoX, player.posicaoY)
+
+        $(novaBomba.dom).animate({
+            left: (posicaoX-novaBomba.posicaoX)*10+"vh",
+            top: (posicaoY-novaBomba.posicaoY)*10+"vh"
+        }, animationDelay, ()=>{
+
+        })
         return novaBomba
     }
     detonarBomba(id, tamanho){
