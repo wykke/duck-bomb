@@ -24,6 +24,7 @@ export default class PowerUp{
         this.createDom(Object.keys(this.powerQtd))
     }
     setSound(){
+        this.sound.src = this.audioPowerUp
         document.getElementById("canvas").appendChild(this.sound)
     }
     setPowerQtd(tipo, qtd){
