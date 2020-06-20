@@ -24,7 +24,7 @@ class Mapa():
             for j in range(TAM):
                 #Insatanciando as bordas do mapa
                 if(i==0 or j ==0 or i==TAM-1 or j == TAM-1):
-                    self.tiles[i][j]= Pedra(i,j,False,Mapa.contador_objetos)
+                    self.tiles[i][j]= Pedra(i,j,False,Mapa.contador_objetos,'pedra')
                     Mapa.contador_objetos += 1 
         self.carrega_mapa() 
 
@@ -48,7 +48,7 @@ class Mapa():
         return (x,y)
 
     def carrega_mapa(self):
-        arquivo = open('save.txt',)
+        arquivo = open('map.json',)
 
         data = json.load(arquivo)
         
@@ -66,4 +66,8 @@ class Mapa():
         if(tipo == '0'):
             self.tiles[x][y] = Arbusto(x,y,True,Mapa.contador_objetos)
         elif(tipo == '1'):
-            self.tiles[x][y]= Pedra(x,y,False,Mapa.contador_objetos)
+            self.tiles[x][y]= Pedra(x,y,False,Mapa.contador_objetos,'pedra')
+        elif(tipo == '2'):
+            self.tiles[x][y]= Pedra(x,y,False,Mapa.contador_objetos,'parede1')
+        elif(tipo == '3'):
+            self.tiles[x][y]= Pedra(x,y,False,Mapa.contador_objetos,'parede2') 
