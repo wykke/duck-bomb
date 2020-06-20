@@ -23,6 +23,9 @@ class Arbusto(ObjetosEstaticos):
             objeto.poder(personagem)
             #Apaga o objeto que foi usado para fazer o poder
             del objeto
+        print(self.oid)
+        personagem.servidor.remove(self.oid)
+        del self
 
 #Estas dudas funções podem virar uma só, mas precisamos passar o id para onde o poder vai...
        
