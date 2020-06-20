@@ -7,6 +7,7 @@ Created on 28 de abr de 2020
 from componentes.jogo.arbusto import Arbusto
 from componentes.jogo.pedra import Pedra
 from random import randint
+import json
 
 TAM = 50
 
@@ -25,14 +26,7 @@ class Mapa():
                 if(i==0 or j ==0 or i==TAM-1 or j == TAM-1):
                     self.tiles[i][j]= Pedra(i,j,False,Mapa.contador_objetos)
                     Mapa.contador_objetos += 1 
-
-        self.tiles[10][10]=Arbusto(10,10,True,Mapa.contador_objetos)
-        self.tiles[20][10]=Arbusto(20,10,True,Mapa.contador_objetos)
-        self.tiles[20][20]=Arbusto(20,20,True,Mapa.contador_objetos)
-        self.tiles[10][30]=Arbusto(10,30,True,Mapa.contador_objetos)
-        self.tiles[30][20]=Arbusto(30,20,True,Mapa.contador_objetos)
-        self.tiles[40][10]=Arbusto(40,10,True,Mapa.contador_objetos)
-        self.tiles[10][40]=Arbusto(10,40,True,Mapa.contador_objetos)
+        self.carrega_mapa() 
 
     def verifica(self, X, Y):
         global TAM
@@ -52,3 +46,24 @@ class Mapa():
             y = randint(1,48)
             
         return (x,y)
+
+    def carrega_mapa(self):
+        arquivo = open('save.txt',)
+
+        data = json.load(arquivo)
+        
+        tipos = list(data.values())
+        posicoes = list(data.keys())
+        
+        for i in range(len(tipos)):
+            self.cria_objeto(tipos[i], posicoes[i])
+
+        arquivo.close()
+    
+    def cria_objeto(self, tipo, posicao):
+        x, y = map(int, posicao.split(','))
+
+        if(tipo == '0'):
+            self.tiles[x][y] = Arbusto(x,y,True,Mapa.contador_objetos)
+        elif(tipo == '1'):
+            self.tiles[x][y]= Pedra(x,y,False,Mapa.contador_objetos)
