@@ -12,6 +12,8 @@ from componentes.jogo.distancia_bomba import DistanciaBomba
 from componentes.jogo.multi_bomba import MultiBomba
 from componentes.jogo.raio_bomba import RaioBomba
 from componentes.jogo.velocidade import Velocidade
+import time
+from threading import Thread
 
 class Arbusto(ObjetosEstaticos):
     
@@ -23,9 +25,9 @@ class Arbusto(ObjetosEstaticos):
             objeto.poder(personagem)
             #Apaga o objeto que foi usado para fazer o poder
             del objeto
-        print(self.oid)
         personagem.servidor.remove(self.oid)
-        del self
+        respawn = Thread(target= self.re_spawn, args=(personagem,))
+        respawn.start()
 
 #Estas dudas funções podem virar uma só, mas precisamos passar o id para onde o poder vai...
        
@@ -47,4 +49,9 @@ class Arbusto(ObjetosEstaticos):
             return objeto
         else:
             return None
+
+    def re_spawn(self, personagem):
+        time.sleep(15)
+        personagem.servidor.respawn(self)
+
         
