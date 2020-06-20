@@ -35,19 +35,11 @@ class ThreadUpdate(object):
         
     def run(self):
         time.sleep(0.5)
-        contador = 0
-        arbustos = [(10,10),(20,10),(20,20),(10,30),(30,20),(40,10),(10,40)]
         
         while True:
             try:
                 personagens = list(ThreadUpdate.personagens.values()).copy()
                 
-                if(contador == 50):
-                    contador = 0
-                    for arbusto in arbustos:
-                        x,y = arbusto
-                        ThreadUpdate.mapa.tiles[x][y] = Arbusto(x,y,True)
-                    
                 ThreadUpdate.lock.acquire()
                 for personagem in personagens:
                     
@@ -71,7 +63,6 @@ class ThreadUpdate(object):
                 continue
                 
             ThreadUpdate.lock.release()
-            contador += 1
             time.sleep(0.400)
 
     def update_bomba(self, bomba):
