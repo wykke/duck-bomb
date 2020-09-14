@@ -5,7 +5,7 @@
 ![license](https://img.shields.io/github/license/wykke/duck-bomb)
 ![issues](https://img.shields.io/github/issues/wykke/duck-bomb)
 
-<!-- <img src="./projeto/projeto.jpeg" alt="drawing" width="200" align="right"/> -->
+<img src="./projeto/logo.png" alt="drawing" width="200" align="right"/>
 
 Trabalho feito para a disciplina de Laboratório de Sistemas Distribuidos da Universidade Federal de Itajubá.
 
@@ -25,6 +25,11 @@ Esse projeto se trata de um jogo no estilo dos jogos do Bomberman com a temátic
 ### Abrindo o cliente
 - O ip do servidor é 0.0.0.0, ou seja, qualquer endereço ipv4 do computador. A porta do servidor é 12376.
 - Para usar o ip local, basta abrir o link: `http://127.0.0.1:12376/`.
+
+## Screenshots
+
+<img src="./projeto/title.png"/>
+<img src="./projeto/playing.png"/>
 
 # Participantes
 <a href="https://github.com/wykke"><img src="https://avatars3.githubusercontent.com/u/38235118?s=460&v=4" alt="drawing" width="40" align="middle"/></a>
