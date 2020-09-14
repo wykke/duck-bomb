@@ -1,5 +1,12 @@
-# Bomberman
-<ins>(Nome pendente)</ins>
+<h1 align="center">
+  Duck Bomb
+</h1>
+
+![license](https://img.shields.io/github/license/wykke/duck-bomb)
+![issues](https://img.shields.io/github/issues/wykke/duck-bomb)
+
+<!-- <img src="./projeto/projeto.jpeg" alt="drawing" width="200" align="right"/> -->
+
 Trabalho feito para a disciplina de Laboratório de Sistemas Distribuidos da Universidade Federal de Itajubá.
 
 Esse projeto se trata de um jogo no estilo dos jogos do Bomberman com a temática de pato. Como se trata de uma disciplina de sistemas distribuidos, o jogo é online e feito com a arquitetura de cliente-servidor orientada a objetos.
